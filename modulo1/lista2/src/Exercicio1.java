@@ -6,6 +6,8 @@ public class Exercicio1 {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         DecimalFormat deci = new DecimalFormat("0.0");
+        double desconto;
+        double custoPromo;
 
         String nomeDoProduto = scan.nextLine();
         double valorDoProduto = scan.nextDouble();
@@ -18,9 +20,10 @@ public class Exercicio1 {
 
         //Não consegui lidar com as "sujeiras" do double
         for(int i=1; i<=10; i++) {
-            double custoPromo = valorDoProduto * i;
-            valorDoProduto *= 0.95;
-            System.out.println(i + " x R$ " + deci.format(valorDoProduto) +
+            desconto = valorDoProduto - (valorDoProduto*0.05);
+            valorDoProduto = desconto;
+            custoPromo = valorDoProduto * i;
+            System.out.println(i + " x R$ " + deci.format(desconto) +
                     " = R$ " + deci.format(custoPromo));
         }
     }

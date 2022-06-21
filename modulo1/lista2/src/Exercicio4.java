@@ -5,6 +5,8 @@ public class Exercicio4 {
         Scanner scanner = new Scanner(System.in);
 
         int[] numeros = new int[3];
+        int menorValor = Integer.MAX_VALUE;
+        int posicaoMenor = 0;
 
         for(int i=0; i< numeros.length; i++){
             System.out.println("Informe um numero:");
@@ -13,14 +15,11 @@ public class Exercicio4 {
         }
         int aux;
         for(int i=0; i< numeros.length; i++){
-            for(int j=i+1;j< numeros.length; j++){
-                if(numeros[i] > numeros[j]){
-                    aux = numeros[j];
-                    numeros[j] = numeros[i];
-                    numeros[i] = aux;
-                }
+            if(numeros[i]<menorValor){
+                menorValor = numeros[i];
+                posicaoMenor = i;
             }
         }
-        System.out.println("Menor valor: " + numeros[0]);
+        System.out.println("Posicao do menor: " + posicaoMenor);
     }
 }

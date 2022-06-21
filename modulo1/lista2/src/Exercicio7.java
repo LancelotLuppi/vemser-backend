@@ -1,16 +1,23 @@
+import java.util.Scanner;
+
 public class Exercicio7 {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
         final int LINHA = 4;
         final int COLUNA = 4;
         int contador = 0;
-        int[][] matriz = {
-                {32, 12, 54, 2},
-                {2, 7, 45, 8},
-                {9, 3, 21, 6},
-                {5, 1, 76, 11}
-        };
 
+        //Leitura da matriz
+        int[][] matriz = new int[LINHA][COLUNA];
+        for(int i=0; i<LINHA; i++){
+            for(int k=0; k<COLUNA; k++){
+                matriz[i][k] = scanner.nextInt();
+                scanner.nextLine();
+            }
+        }
+
+        //Contador de valores +10;
         for(int i=0; i<LINHA; i++){
             for(int k=0; k<COLUNA; k++){
                 if(matriz[i][k] > 10){
