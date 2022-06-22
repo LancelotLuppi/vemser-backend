@@ -9,6 +9,7 @@ public class Exercicio1 {
         double desconto;
         double custoPromo;
 
+        System.out.println("------------------------------------");
         System.out.println("Informe o nome do produto:");
         String nomeDoProduto = scan.nextLine();
         System.out.println("Informe o valor do produto:");
