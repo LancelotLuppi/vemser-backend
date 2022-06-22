@@ -20,14 +20,18 @@ public class ContaCorrente {
         if(valor>0 && valor <= this.saldo+this.chequeEspecial){
             saldo -= valor;
             return true;
-        } else return false;
+        } else {
+            return false;
+        }
     }
 
     public boolean depositar(double valor) {
         if(valor > 0){
             saldo += valor;
             return true;
-        } else return false;
+        } else {
+            return false;
+        }
     }
 
     public double retornarSaldoComChequeEspecial() {
@@ -39,7 +43,9 @@ public class ContaCorrente {
         if(this.sacar(valor) == true){
             contaDestino.depositar(valor);
             return true;
-        } else return false;
+        } else {
+            return false;
+        }
     }
 
 }
