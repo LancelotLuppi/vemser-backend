@@ -17,6 +17,7 @@ public class Main {
         c2.depositar(8000); // Dia de pagamento
         c2.transferir(c1, 500); // Maicon ganhou a aposta de que todos os alunos seriam contratados
 
+
         // Testes de regras:
         c1.depositar(-20);
         c2.sacar(-349);
@@ -24,8 +25,9 @@ public class Main {
         c1.transferir(c2, -7500);
         c2.transferir(c1, 9999999);
 
-        System.out.println("Saldo - conta Maicon: " + c1.saldo);
+        System.out.println("\nSaldo - conta Maicon: " + c1.saldo);
         System.out.println("Saldo - conta Rafael: " + c2.saldo);
+        System.out.println("Saldo com cheque especial - conta Maicon: " + c1.retornarSaldoComChequeEspecial() + "\n");
 
 
 
@@ -70,10 +72,10 @@ public class Main {
         luppi.enderecos[0] = endereco1;
         luppi.enderecos[1] = endereco2;
         luppi.imprimirCliente();
-        luppi.imprimirEnderecos();
-        luppi.imprimirContatos();
+        //luppi.imprimirEnderecos();
+        //luppi.imprimirContatos();
 
         contato1.imprimirContato();
-        endereco2.imprimeEndereco();
+        //endereco2.imprimeEndereco();
     }
 }
