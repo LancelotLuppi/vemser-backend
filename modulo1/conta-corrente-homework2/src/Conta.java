@@ -61,4 +61,14 @@ public abstract class Conta implements Movimentacao {
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
+
+    public boolean verificaDadosNull() {
+        if(this.getCliente().getNome() != null && this.getNumeroConta() != null){
+            return true;
+        }
+        System.out.println("\nPor favor, verifique se os dados de Nome do cliente" +
+                " e numero da conta foram adicionados corretamente.");
+
+        return false;
+    }
 }

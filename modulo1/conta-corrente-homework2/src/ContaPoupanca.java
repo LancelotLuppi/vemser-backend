@@ -3,14 +3,16 @@ public class ContaPoupanca extends Conta implements Impressao {
 
     @Override
     public void imprimir() {
-        System.out.println("------------------------"
-                + "Imprimindo dados da conta poupança"
-                + "\nCliente: " + this.getCliente().getNome()
-                + "\nNumero da conta: " + this.getNumeroConta()
-                + "\nAgencia: " + this.getAgencia()
-                + "\nSaldo: " + this.getSaldo()
-                + "\nJuros mensal: " + JUROS_MENSAL
-        );
+        if(verificaDadosNull()) {
+            System.out.println("----------------------------------------"
+                    + "Imprimindo dados da conta poupança"
+                    + "\nCliente: " + this.getCliente().getNome()
+                    + "\nNumero da conta: " + this.getNumeroConta()
+                    + "\nAgencia: " + this.getAgencia()
+                    + "\nSaldo: " + this.getSaldo()
+                    + "\nJuros mensal: " + JUROS_MENSAL
+            );
+        }
     }
 
     public void creditarTaxa(){
