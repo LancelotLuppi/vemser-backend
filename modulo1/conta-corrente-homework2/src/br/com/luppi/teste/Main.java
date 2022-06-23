@@ -1,7 +1,15 @@
+package br.com.luppi.teste;
+
+import br.com.luppi.classes.cliente.Cliente;
+import br.com.luppi.classes.cliente.dados.Contato;
+import br.com.luppi.classes.cliente.dados.Endereco;
+import br.com.luppi.classes.conta.ContaCorrente;
+import br.com.luppi.classes.conta.ContaPoupanca;
+
 public class Main {
     public static void main(String[] args) {
 
-        // Teste das contas: ContaPoupanca e ContaCorrente
+        // Teste das contas: br.com.luppi.classes.conta.ContaPoupanca e br.com.luppi.classes.conta.ContaCorrente
         ContaCorrente cc1 = new ContaCorrente();
         cc1.setSaldo(300);
         Cliente charmander = new Cliente();
@@ -43,14 +51,14 @@ public class Main {
         cp1.imprimir();
 
         System.out.println(" ");
-        // Teste das classes: Cliente, Endereco e Contato
+        // Teste das classes: br.com.luppi.classes.cliente.Cliente, br.com.luppi.classes.cliente.dados.Endereco e br.com.luppi.classes.cliente.dados.Contato
         Contato contato1 = new Contato();
-        contato1.setDescricao("Contato celular pessoal");
+        contato1.setDescricao("br.com.luppi.classes.cliente.dados.Contato celular pessoal");
         contato1.setTelefone("(54)9978439");
         contato1.setTipo(1);
 
         Contato contato2 = new Contato();
-        contato2.setDescricao("Contato celular profissional");
+        contato2.setDescricao("br.com.luppi.classes.cliente.dados.Contato celular profissional");
         contato2.setTelefone("(11)9977849");
         contato2.setTipo(0);
 

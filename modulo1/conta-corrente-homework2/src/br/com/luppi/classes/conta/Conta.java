@@ -1,3 +1,8 @@
+package br.com.luppi.classes.conta;
+
+import br.com.luppi.classes.cliente.Cliente;
+import br.com.luppi.interfaces.Movimentacao;
+
 public abstract class Conta implements Movimentacao {
     private Cliente cliente;
     private String numeroConta;

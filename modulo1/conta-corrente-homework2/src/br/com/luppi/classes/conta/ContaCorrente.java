@@ -1,4 +1,8 @@
-public class ContaCorrente extends Conta implements Impressao{
+package br.com.luppi.classes.conta;
+
+import br.com.luppi.interfaces.Impressao;
+
+public class ContaCorrente extends Conta implements Impressao {
 
     private double chequeEspecial;
 
@@ -7,7 +11,7 @@ public class ContaCorrente extends Conta implements Impressao{
         if(verificaDadosNull()) {
             System.out.println("----------------------------------------"
                     + "Imprimindo dados da conta corrente"
-                    + "\nCliente: " + this.getCliente().getNome()
+                    + "\nbr.com.luppi.classes.cliente.Cliente: " + this.getCliente().getNome()
                     + "\nNumero da conta: " + this.getNumeroConta()
                     + "\nAgencia: " + this.getAgencia()
                     + "\nSaldo: " + this.getSaldo()

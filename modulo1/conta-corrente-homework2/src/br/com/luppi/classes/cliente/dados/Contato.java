@@ -1,4 +1,4 @@
-package br.com.luppi.classes.cliente;
+package br.com.luppi.classes.cliente.dados;
 
 public class Contato {
     private String descricao;

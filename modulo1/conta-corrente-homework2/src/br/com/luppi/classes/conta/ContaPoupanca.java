@@ -1,3 +1,7 @@
+package br.com.luppi.classes.conta;
+
+import br.com.luppi.interfaces.Impressao;
+
 public class ContaPoupanca extends Conta implements Impressao {
     static final double JUROS_MENSAL = 1.01;
 
@@ -6,7 +10,7 @@ public class ContaPoupanca extends Conta implements Impressao {
         if(verificaDadosNull()) {
             System.out.println("----------------------------------------"
                     + "Imprimindo dados da conta poupança"
-                    + "\nCliente: " + this.getCliente().getNome()
+                    + "\nbr.com.luppi.classes.cliente.Cliente: " + this.getCliente().getNome()
                     + "\nNumero da conta: " + this.getNumeroConta()
                     + "\nAgencia: " + this.getAgencia()
                     + "\nSaldo: " + this.getSaldo()

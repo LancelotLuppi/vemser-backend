@@ -1,3 +1,7 @@
+package br.com.luppi.interfaces;
+
+import br.com.luppi.classes.conta.Conta;
+
 public interface Movimentacao {
 
     public boolean sacar(double valor);

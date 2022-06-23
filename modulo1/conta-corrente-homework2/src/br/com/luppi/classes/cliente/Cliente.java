@@ -1,3 +1,8 @@
+package br.com.luppi.classes.cliente;
+
+import br.com.luppi.classes.cliente.dados.Contato;
+import br.com.luppi.classes.cliente.dados.Endereco;
+
 public class Cliente {
     private String nome;
     private String cpf;
