@@ -7,13 +7,17 @@ public class Main {
         Cliente charmander = new Cliente();
         charmander.setNome("Charmander");
         cc1.setCliente(charmander);
-
+        cc1.setNumeroConta("8796573");
+        cc1.setAgencia(12);
         cc1.setChequeEspecial(500);
+
         ContaPoupanca cp1 = new ContaPoupanca();
         cp1.setSaldo(300);
         Cliente squirtle = new Cliente();
         squirtle.setNome("Squirtle");
         cp1.setCliente(squirtle);
+        cp1.setNumeroConta("5305186");
+        cp1.setAgencia(6);
 
         cc1.depositar(400);
         cp1.depositar(400);
@@ -30,16 +34,15 @@ public class Main {
         cp1.transferir(cc1, 6000);
         cc1.transferir(cp1, 10000);
         cc1.transferir(cp1, 6950);
-
-
-
-        System.out.println("Saldo da ContaCorrente: " + cc1.getSaldo());
-        System.out.println("Saldo com cheque especial da ContaCorrente: " + cc1.retornarSaldoComChequeEspecial());
-        System.out.println("Saldo da ContaPoupanca: " + cp1.getSaldo());
         cp1.creditarTaxa();
-        System.out.println("Saldo da ContaPoupanca com taxa creditada: " + cp1.getSaldo());
 
 
+        System.out.println(" ");
+
+        cc1.imprimir();
+        cp1.imprimir();
+
+        System.out.println(" ");
         // Teste das classes: Cliente, Endereco e Contato
         Contato contato1 = new Contato();
         contato1.setDescricao("Contato celular pessoal");
@@ -78,7 +81,8 @@ public class Main {
         luppi.setContatos(0, contato1);
 
         luppi.setEnderecos(0, endereco1);
-        luppi.setEnderecos(1, endereco2);
+        luppi.setEnderecos(3, endereco2);
+
         luppi.imprimirCliente();
 //        luppi.imprimirEnderecos();
 //        luppi.imprimirContatos();
