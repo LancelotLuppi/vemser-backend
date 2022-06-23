@@ -33,8 +33,6 @@ public class ContaCorrente extends Conta implements Impressao {
         }
     }
 
-
-
     public double retornarSaldoComChequeEspecial() {
         double saldoTotal = this.getSaldo() + this.chequeEspecial;
         return saldoTotal;
