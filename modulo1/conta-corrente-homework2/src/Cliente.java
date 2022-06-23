@@ -50,7 +50,9 @@ public class Cliente {
     }
 
     public void setContatos(int index, Contato contatos) {
-        this.contatos[index] = contatos;
+        if(index < 2) {
+            this.contatos[index] = contatos;
+        }
     }
 
     public Endereco[] getEnderecos() {
@@ -58,6 +60,8 @@ public class Cliente {
     }
 
     public void setEnderecos(int index, Endereco enderecos) {
-        this.enderecos[index] = enderecos;
+        if(index < 2) {
+            this.enderecos[index] = enderecos;
+        }
     }
 }
