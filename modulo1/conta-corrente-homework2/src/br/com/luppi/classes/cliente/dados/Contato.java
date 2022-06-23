@@ -1,3 +1,5 @@
+package br.com.luppi.classes.cliente;
+
 public class Contato {
     private String descricao;
     private String telefone;

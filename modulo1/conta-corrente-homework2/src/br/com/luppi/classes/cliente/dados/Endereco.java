@@ -1,3 +1,5 @@
+package br.com.luppi.classes.cliente;
+
 public class Endereco {
     private int tipo;
     private String logradouro;
