@@ -15,7 +15,7 @@ public class ContaCorrente extends Conta implements Impressao {
     }
     @Override
     public boolean sacar(double valor){
-        if(this.verificarSaldo(valor)){
+        if(verificarSaldo(valor)){
             retirarDinheiro(valor);
             return true;
         } else {

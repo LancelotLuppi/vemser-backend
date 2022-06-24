@@ -7,9 +7,8 @@ public class ContaPagamento extends Conta implements Impressao {
 
     @Override
     public boolean sacar(double valor) {
-        if(this.verificarSaldo(valor)){
-            double novoSaldo = this.getSaldo() - (valor + TAXA_SAQUE);
-            this.setSaldo(novoSaldo);
+        if(verificarSaldo(valor)){
+            retirarDinheiro(valor + TAXA_SAQUE);
             return true;
         }
         return false;
