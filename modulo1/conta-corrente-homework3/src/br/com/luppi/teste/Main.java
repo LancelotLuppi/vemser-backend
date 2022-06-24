@@ -16,13 +16,13 @@ public class Main {
         // Criando Conta Corrente e Cliente
         ContaCorrente cc = new ContaCorrente();
         cc.setSaldo(3000);
-        cc.setAgencia(321);
+        cc.setAgencia("321");
         cc.setNumeroConta("0986546");
         cc.setChequeEspecial(500);
 
         ContaPagamento cpag = new ContaPagamento();
         cpag.setSaldo(8000);
-        cpag.setAgencia(321);
+        cpag.setAgencia("321");
         cpag.setNumeroConta("0932648");
 
         Cliente luppi = new Cliente();
@@ -59,7 +59,7 @@ public class Main {
 
         ContaPoupanca cp = new ContaPoupanca();
         cp.setSaldo(20000);
-        cp.setAgencia(64);
+        cp.setAgencia("64");
         cp.setNumeroConta("09874298");
         Cliente hiluiza = new Cliente();
         hiluiza.setNome("Hiluiza");

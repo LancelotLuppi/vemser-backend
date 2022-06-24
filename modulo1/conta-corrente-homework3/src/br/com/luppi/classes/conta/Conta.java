@@ -6,7 +6,7 @@ import br.com.luppi.interfaces.Movimentacao;
 public abstract class Conta implements Movimentacao {
     private Cliente cliente;
     private String numeroConta;
-    private int agencia;
+    private String agencia;
     private double saldo;
 
 
@@ -73,11 +73,11 @@ public abstract class Conta implements Movimentacao {
         this.numeroConta = numeroConta;
     }
 
-    public int getAgencia() {
+    public String getAgencia() {
         return agencia;
     }
 
-    public void setAgencia(int agencia) {
+    public void setAgencia(String agencia) {
         this.agencia = agencia;
     }
 
