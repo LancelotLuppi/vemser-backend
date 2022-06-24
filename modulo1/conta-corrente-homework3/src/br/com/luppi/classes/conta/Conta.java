@@ -47,12 +47,14 @@ public abstract class Conta implements Movimentacao {
     }
 
     public void imprimirDadosGerais() {
-        System.out.println("------------------------"
-                + "Imprimindo dados da conta"
-                + "\nCliente: " + this.getCliente().getNome()
-                + "\nNumero da conta: " + this.getNumeroConta()
-                + "\nAgencia: " + this.getAgencia()
-                + "\nSaldo: " + this.getSaldo());
+        if(verificaDadosNull()) {
+            System.out.println("------------------------"
+                    + "Imprimindo dados da conta"
+                    + "\nCliente: " + this.getCliente().getNome()
+                    + "\nNumero da conta: " + this.getNumeroConta()
+                    + "\nAgencia: " + this.getAgencia()
+                    + "\nSaldo: " + this.getSaldo());
+        }
     }
 
     public Cliente getCliente() {

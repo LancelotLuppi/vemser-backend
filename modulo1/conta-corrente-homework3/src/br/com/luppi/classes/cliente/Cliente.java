@@ -27,13 +27,15 @@ public class Cliente {
         }
     }
     public void imprimirCliente(){
-        System.out.println("----------------------------------------"
-            + "Nome e CPF do titular"
-            + "\nNome: " + this.nome
-            + "\nCPF: " + this.cpf
-        );
-        imprimirContatos();
-        imprimirEnderecos();
+        if(this.getNome() != null && this.getCpf() != null) {
+            System.out.println("----------------------------------------"
+                    + "Nome e CPF do titular"
+                    + "\nNome: " + this.nome
+                    + "\nCPF: " + this.cpf
+            );
+            imprimirContatos();
+            imprimirEnderecos();
+        }
     }
 
     public String getNome() {
