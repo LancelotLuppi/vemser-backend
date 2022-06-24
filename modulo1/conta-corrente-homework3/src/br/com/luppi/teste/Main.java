@@ -59,8 +59,8 @@ public class Main {
 
         ContaPoupanca cp = new ContaPoupanca();
         cp.setSaldo(20000);
-        cp.setAgencia(321);
-        cp.setNumeroConta("0986546");
+        cp.setAgencia(64);
+        cp.setNumeroConta("09874298");
         Cliente hiluiza = new Cliente();
         hiluiza.setNome("Hiluiza");
         hiluiza.setCpf("913.481.490-60");
