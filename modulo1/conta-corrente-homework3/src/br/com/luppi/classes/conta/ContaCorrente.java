@@ -17,10 +17,6 @@ public class ContaCorrente extends Conta implements Impressao {
     public boolean verificarSaldo(double valor) {
         return(valor>0 && valor <= this.retornarSaldoComChequeEspecial());
     }
-    @Override
-    public void retirarDinheiro(double valor) {
-        this.setSaldo(this.getSaldo() - valor);
-    }
 
     public double retornarSaldoComChequeEspecial() {
         return (this.getSaldo() + this.chequeEspecial);
