@@ -1,0 +1,223 @@
+{
+	"info": {
+		"_postman_id": "e153abef-697f-45da-8927-5035c5fa596b",
+		"name": "homework1_2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21785879"
+	},
+	"item": [
+		{
+			"name": "get_pessoa",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://back-vemserdbc.herokuapp.com/pessoa",
+					"protocol": "https",
+					"host": [
+						"back-vemserdbc",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"pessoa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post_pessoa",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Gabriel Luppi\",\r\n    \"dataNascimento\": \"2003-12-08\",\r\n    \"cpf\": \"1234567891\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://back-vemserdbc.herokuapp.com/pessoa",
+					"protocol": "https",
+					"host": [
+						"back-vemserdbc",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"pessoa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put_pessoa",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "https://back-vemserdbc.herokuapp.com/pessoa/6",
+					"protocol": "https",
+					"host": [
+						"back-vemserdbc",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"pessoa",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_pessoa",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://back-vemserdbc.herokuapp.com/pessoa/6",
+					"protocol": "https",
+					"host": [
+						"back-vemserdbc",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"pessoa",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contato_get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://back-vemserdbc.herokuapp.com/contato",
+					"protocol": "https",
+					"host": [
+						"back-vemserdbc",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contato"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contato_get_id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://back-vemserdbc.herokuapp.com/contato/idContato=4",
+					"protocol": "https",
+					"host": [
+						"back-vemserdbc",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contato",
+						"idContato=4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contato_post_id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idPessoa\": 5,\r\n    \"tipoContato\": \"COMERCIAL\",\r\n    \"numero\": \"548998732546\",\r\n    \"descricao\": \"whatsapp\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://back-vemserdbc.herokuapp.com/contato/4",
+					"protocol": "https",
+					"host": [
+						"back-vemserdbc",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contato",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contato_put",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idPessoa\": 4,\r\n    \"tipoContato\": \"RESIDENCIAL\",\r\n    \"numero\": \"548998732546\",\r\n    \"descricao\": \"whatsapp\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://back-vemserdbc.herokuapp.com/contato/14",
+					"protocol": "https",
+					"host": [
+						"back-vemserdbc",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contato",
+						"14"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contato_delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://back-vemserdbc.herokuapp.com/contato/14",
+					"protocol": "https",
+					"host": [
+						"back-vemserdbc",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contato",
+						"14"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
