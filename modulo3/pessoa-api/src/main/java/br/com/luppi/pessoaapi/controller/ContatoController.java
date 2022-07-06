@@ -2,19 +2,15 @@ package br.com.luppi.pessoaapi.controller;
 
 import br.com.luppi.pessoaapi.entity.Contato;
 import br.com.luppi.pessoaapi.service.ContatoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/contato")
 public class ContatoController {
+    @Autowired
     private ContatoService contatoService;
-
-    public ContatoController() {
-        this.contatoService = new ContatoService();
-    }
 
     @PostMapping("/{idPessoa}")
     public Contato create(@PathVariable("idPessoa") Integer id,

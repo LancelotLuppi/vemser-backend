@@ -1,6 +1,8 @@
 package br.com.luppi.pessoaapi.controller;
+import br.com.luppi.pessoaapi.config.PropertiesReader;
 import br.com.luppi.pessoaapi.entity.Pessoa;
 import br.com.luppi.pessoaapi.service.PessoaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,11 +10,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/pessoa")
 public class PessoaController {
+    @Autowired
     private PessoaService pessoaService;
-
-    public PessoaController() {
-        this.pessoaService = new PessoaService();
-    }
+    @Autowired
+    private PropertiesReader propertiesReader;
 
     @GetMapping("/hello")
     public String hello() {
@@ -25,7 +26,7 @@ public class PessoaController {
     }
 
     @PostMapping
-    public Pessoa create(@RequestBody Pessoa pessoa) {
+    public Pessoa create(@RequestBody Pessoa pessoa) throws Exception {
         return pessoaService.create(pessoa);
     }
 
@@ -48,6 +49,11 @@ public class PessoaController {
     @DeleteMapping("/{idPessoa}")
     public void delete(@PathVariable("idPessoa") Integer id) throws Exception {
         pessoaService.delete(id);
+    }
+
+    @GetMapping("/ambiente")
+    public String retornarPropertie() {
+        return propertiesReader.getAmbiente();
     }
 
 
