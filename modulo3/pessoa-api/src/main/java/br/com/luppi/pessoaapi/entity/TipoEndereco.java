@@ -2,21 +2,22 @@ package br.com.luppi.pessoaapi.entity;
 
 import java.util.Arrays;
 
-public enum TipoContato {
-    COMERCIAL(1),
-    RESIDENCIAL(2);
+public enum TipoEndereco {
+    RESIDENCIAL(1),
+    COMERCIAL(2);
 
     private Integer tipo;
 
-    TipoContato(Integer tipo) {
+    TipoEndereco(Integer tipo){
         this.tipo = tipo;
     }
 
     public Integer getTipo() {
         return tipo;
     }
-    public static TipoContato ofTipo(Integer tipo){
-        return Arrays.stream(TipoContato.values())
+
+    public static TipoEndereco ofTipo(Integer tipo){
+        return Arrays.stream(TipoEndereco.values())
                 .filter(tp -> tp.getTipo().equals(tipo))
                 .findFirst()
                 .get();

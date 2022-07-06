@@ -3,13 +3,14 @@ package br.com.luppi.pessoaapi.entity;
 public class Contato {
     private Integer idContato;
     private Integer idPessoa;
+    private TipoContato tipoContato;
     private String telefone;
     private String descricao;
-    private TipoContato tipoContato;
 
-    public Contato( Integer idPessoa, Integer idContato, String telefone, String descricao) {
+    public Contato( Integer idPessoa, Integer idContato, TipoContato tipoContato , String telefone, String descricao) {
         this.idPessoa = idPessoa;
         this.idContato = idContato;
+        this.tipoContato = tipoContato;
         this.telefone = telefone;
         this.descricao = descricao;
     }
@@ -51,6 +52,7 @@ public class Contato {
         return "Contato{" +
                 "idContato=" + idContato +
                 ", idPessoa=" + idPessoa +
+                ", tipoContato=" + tipoContato +
                 ", telefone='" + telefone + '\'' +
                 ", descricao='" + descricao + '\'' +
                 '}';
