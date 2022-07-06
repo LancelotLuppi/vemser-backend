@@ -39,7 +39,7 @@ public class ContatoController {
     }
 
     @GetMapping("/{idPessoa}")
-    public List<Contato> listByPersonId(@PathVariable("idPessoa") Integer id) {
+    public List<Contato> listByPersonId(@PathVariable("idPessoa") Integer id) throws Exception {
         return contatoService.listByPersonId(id);
     }
 }

@@ -24,7 +24,7 @@ public class ContatoService {
     public void delete(Integer id) throws Exception{
         contatoRepository.delete(id);
     }
-    public List<Contato> listByPersonId(Integer id) {
+    public List<Contato> listByPersonId(Integer id) throws Exception {
         return contatoRepository.listByPersonId(id);
     }
 }
