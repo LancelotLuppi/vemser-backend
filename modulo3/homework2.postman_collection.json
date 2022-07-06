@@ -34,7 +34,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"idContato\": 3,\r\n    \"telefone\": \"(11)99990879\",\r\n    \"descricao\": \"whats comercial\"\r\n}",
+					"raw": "{\r\n    \"telefone\": \"(11)99990879\",\r\n    \"descricao\": \"whats comercial\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -42,14 +42,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/contato/5",
+					"raw": "localhost:8080/contato/6",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"contato",
-						"5"
+						"6"
 					]
 				}
 			},
@@ -62,7 +62,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"idContato\": 3,\r\n    \"telefone\": \"(54)9 9999-0812\",\r\n    \"descricao\": \"whats pessoal\"\r\n}",
+					"raw": "{\r\n    \"telefone\": \"(54)9 9999-0812\",\r\n    \"descricao\": \"whats pessoal\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -70,14 +70,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/contato/5",
+					"raw": "localhost:8080/contato/6",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"contato",
-						"5"
+						"6"
 					]
 				}
 			},
@@ -98,14 +98,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/contato/3",
+					"raw": "localhost:8080/contato/6",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"contato",
-						"3"
+						"6"
 					]
 				}
 			},
@@ -117,14 +117,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/contato/3",
+					"raw": "localhost:8080/contato/6",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"contato",
-						"3"
+						"6"
 					]
 				}
 			},
