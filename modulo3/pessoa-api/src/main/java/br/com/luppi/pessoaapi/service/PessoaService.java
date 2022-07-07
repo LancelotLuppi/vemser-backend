@@ -35,6 +35,6 @@ public class PessoaService {
     public boolean verificarNullPessoa(Pessoa pessoa) {
         return (pessoa != null && StringUtils.isBlank(pessoa.getNome())
                 && StringUtils.isBlank(pessoa.getCpf())
-                && pessoa.getDataNascimento() != null);
+                && pessoa.getDataNascimento() == null);
     }
 }
