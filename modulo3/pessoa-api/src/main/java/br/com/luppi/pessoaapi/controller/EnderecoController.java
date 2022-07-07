@@ -30,7 +30,7 @@ public class EnderecoController {
     }
 
     @GetMapping("/{idPessoa}/pessoa")
-    public List<Endereco> listByPersonId(@PathVariable("idEndereco") Integer id) throws Exception {
+    public List<Endereco> listByPersonId(@PathVariable("idPessoa") Integer id) throws Exception {
         return enderecoService.listByPersonId(id);
     }
 
