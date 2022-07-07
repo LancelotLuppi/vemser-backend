@@ -19,7 +19,7 @@ public class Pessoa {
     @NotNull(message= "A data nao pode ser nula")
     private LocalDate dataNascimento;
 
-    @CPF
+    
     private String cpf;
 
     public Pessoa() {
