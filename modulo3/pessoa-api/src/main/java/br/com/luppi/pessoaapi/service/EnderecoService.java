@@ -89,13 +89,13 @@ public class EnderecoService {
 
     private boolean verificarCamposNulos(Endereco endereco) {
         return (endereco != null
-                && endereco.getIdPessoa() == null
-                && endereco.getTipo() == null
-                && endereco.getLogradouro() == null
-                && endereco.getNumero() == null
-                && endereco.getComplemento() == null
-                && endereco.getCidade() == null
-                && endereco.getEstado() == null
-                && endereco.getPais() == null);
+                && (endereco.getIdPessoa() == null
+                || endereco.getTipo() == null
+                || endereco.getLogradouro() == null
+                || endereco.getNumero() == null
+                || endereco.getComplemento() == null
+                || endereco.getCidade() == null
+                || endereco.getEstado() == null
+                || endereco.getPais() == null));
     }
 }
