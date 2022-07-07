@@ -202,7 +202,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tipo\": \"2\",\r\n    \"logradouro\": \"Avenida Swampert\",\r\n    \"numero\": 1234,\r\n    \"complemento\": \"casa azul\",\r\n    \"cidade\": \"Piltover\",\r\n    \"estado\": \"Kanto\",\r\n    \"pais\": \"Runeterra\"\r\n}",
+							"raw": "{\r\n    \"tipo\": 0,\r\n    \"logradouro\": \"Avenida Swampert\",\r\n    \"numero\": 1234,\r\n    \"complemento\": \"casa azul\",\r\n    \"cidade\": \"Piltover\",\r\n    \"estado\": \"Kanto\",\r\n    \"pais\": \"Runeterra\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -210,14 +210,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/endereco/1",
+							"raw": "localhost:8080/endereco/2",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"endereco",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -230,7 +230,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tipo\": \"RESIDENCIAL\",\r\n    \"logradouro\": \"Rua Coronel Carvalho\",\r\n    \"numero\": 32,\r\n    \"complemento\": \"predio branco\",\r\n    \"cidade\": \"São Paulo\",\r\n    \"estado\": \"São Paulo\",\r\n    \"pais\": \"Brasil\"\r\n}",
+							"raw": "{\r\n    \"idPessoa\": 3,\r\n    \"tipo\": 1,\r\n    \"logradouro\": \"Rua Coronel Carvalho\",\r\n    \"numero\": 32,\r\n    \"complemento\": \"predio branco\",\r\n    \"cidade\": \"São Paulo\",\r\n    \"estado\": \"São Paulo\",\r\n    \"pais\": \"Brasil\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
