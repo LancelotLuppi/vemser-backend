@@ -3,12 +3,18 @@ import br.com.luppi.pessoaapi.config.PropertiesReader;
 import br.com.luppi.pessoaapi.entity.Pessoa;
 import br.com.luppi.pessoaapi.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @RestController
 @RequestMapping("/pessoa")
+@Validated
 public class PessoaController {
     @Autowired
     private PessoaService pessoaService;
@@ -26,8 +32,8 @@ public class PessoaController {
     }
 
     @PostMapping
-    public Pessoa create(@RequestBody Pessoa pessoa) throws Exception {
-        return pessoaService.create(pessoa);
+    public ResponseEntity<Pessoa> create(@Valid @RequestBody Pessoa pessoa) throws Exception {
+        return ResponseEntity.ok(pessoaService.create(pessoa));
     }
 
     @GetMapping // localhost:8080/pessoa
@@ -42,7 +48,7 @@ public class PessoaController {
 
     @PutMapping("/{idPessoa}") // localhost:8080/pessoa/1000
     public Pessoa update(@PathVariable("idPessoa") Integer id,
-                         @RequestBody Pessoa pessoaAtualizar) throws Exception {
+                         @RequestBody @Valid Pessoa pessoaAtualizar) throws Exception {
         return pessoaService.update(id, pessoaAtualizar);
     }
 

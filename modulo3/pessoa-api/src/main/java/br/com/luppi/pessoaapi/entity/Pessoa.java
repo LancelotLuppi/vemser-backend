@@ -1,11 +1,25 @@
 package br.com.luppi.pessoaapi.entity;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class Pessoa {
     private Integer idPessoa;
+
+    @NotBlank(message = "O nome nao pode ser nulo")
     private String nome;
+
+    @Past
+    @NotNull(message= "A data nao pode ser nula")
     private LocalDate dataNascimento;
+
+    @CPF
     private String cpf;
 
     public Pessoa() {
