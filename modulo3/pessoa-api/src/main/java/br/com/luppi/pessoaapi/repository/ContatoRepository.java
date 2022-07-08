@@ -1,12 +1,12 @@
 package br.com.luppi.pessoaapi.repository;
 
 import br.com.luppi.pessoaapi.entity.Contato;
+import br.com.luppi.pessoaapi.exception.RegraDeNegocioException;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Repository
 public class ContatoRepository {
@@ -15,7 +15,7 @@ public class ContatoRepository {
     private AtomicInteger COUNTER = new AtomicInteger();
 
 
-    public Contato create(Contato contato) throws Exception {
+    public Contato create(Contato contato) throws RegraDeNegocioException {
         contato.setIdContato(COUNTER.incrementAndGet());
         listaContatos.add(contato);
         return contato;

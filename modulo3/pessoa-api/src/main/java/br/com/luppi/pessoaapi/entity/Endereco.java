@@ -1,7 +1,6 @@
 package br.com.luppi.pessoaapi.entity;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -21,9 +20,9 @@ public class Endereco {
     @Size(min=2, max=250)
     @NotBlank(message = "Informe uma cidade")
     private String cidade;
-    @NotNull
+    @NotBlank
     private String estado;
-    @NotNull
+    @NotBlank
     private String pais;
 
     public Integer getIdEndereco() {

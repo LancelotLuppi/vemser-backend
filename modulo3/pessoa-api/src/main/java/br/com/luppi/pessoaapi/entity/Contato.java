@@ -25,6 +25,10 @@ public class Contato {
         this.descricao = descricao;
     }
 
+    public Contato(){
+
+    }
+
     public Integer getIdContato() {
         return idContato;
     }

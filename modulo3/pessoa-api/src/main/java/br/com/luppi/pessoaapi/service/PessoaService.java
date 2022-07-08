@@ -1,8 +1,7 @@
 package br.com.luppi.pessoaapi.service;
 import br.com.luppi.pessoaapi.entity.Pessoa;
+import br.com.luppi.pessoaapi.exception.RegraDeNegocioException;
 import br.com.luppi.pessoaapi.repository.PessoaRepository;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,19 +13,19 @@ public class PessoaService {
     @Autowired
     private  PessoaRepository pessoaRepository;
 
-    public Pessoa create(Pessoa pessoa) throws Exception {
+    public Pessoa create(Pessoa pessoa) throws RegraDeNegocioException {
         return pessoaRepository.create(pessoa);
     }
     public List<Pessoa> list(){
         return pessoaRepository.list();
     }
 
-    public Pessoa update(Integer id, Pessoa pessoaAtualizada) throws Exception {
+    public Pessoa update(Integer id, Pessoa pessoaAtualizada) throws RegraDeNegocioException {
         Pessoa pessoaRecuperada = returnPersonById(id);
         return pessoaRepository.update(pessoaRecuperada, pessoaAtualizada);
     }
 
-    public void delete(Integer id) throws Exception {
+    public void delete(Integer id) throws RegraDeNegocioException {
         Pessoa pessoaRecuperada = returnPersonById(id);
         pessoaRepository.delete(pessoaRecuperada);
     }
@@ -37,17 +36,17 @@ public class PessoaService {
                 .collect(Collectors.toList());
     }
 
-    public void verificarId(Integer idPessoa) throws  Exception{
+    public void verificarId(Integer idPessoa) throws  RegraDeNegocioException {
         pessoaRepository.list().stream()
                 .filter(pessoa -> pessoa.getIdPessoa().equals(idPessoa))
                 .findFirst()
-                .orElseThrow(() -> new Exception(("ID da pessoa invalido ou inexistente")));
+                .orElseThrow(() -> new RegraDeNegocioException(("ID da pessoa invalido ou inexistente")));
     }
 
-    public Pessoa returnPersonById(Integer id) throws Exception {
+    public Pessoa returnPersonById(Integer id) throws RegraDeNegocioException {
         return pessoaRepository.list().stream()
                 .filter(pessoa -> pessoa.getIdPessoa().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Pessoa não econtrada"));
+                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não econtrada"));
     }
 }

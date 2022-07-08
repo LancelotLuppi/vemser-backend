@@ -2,6 +2,7 @@ package br.com.luppi.pessoaapi.controller;
 import br.com.luppi.pessoaapi.config.PropertiesReader;
 import br.com.luppi.pessoaapi.entity.Pessoa;
 import br.com.luppi.pessoaapi.service.PessoaService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/pessoa")
 @Validated
+@Slf4j
 public class PessoaController {
     @Autowired
     private PessoaService pessoaService;
@@ -33,7 +35,9 @@ public class PessoaController {
 
     @PostMapping
     public ResponseEntity<Pessoa> create(@Valid @RequestBody Pessoa pessoa) throws Exception {
-        return ResponseEntity.ok(pessoaService.create(pessoa));
+        Pessoa p = pessoaService.create(pessoa);
+        log.info("Criando a pessoa " + p);
+        return ResponseEntity.ok(p);
     }
 
     @GetMapping // localhost:8080/pessoa
