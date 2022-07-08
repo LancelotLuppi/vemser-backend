@@ -14,27 +14,39 @@ public class PessoaService {
     private  PessoaRepository pessoaRepository;
 
     public Pessoa create(Pessoa pessoa) throws Exception {
-        if(verificarNullPessoa(pessoa)) {
-            throw new Exception("Pessoa e nome devem existir");
-        }
         return pessoaRepository.create(pessoa);
     }
     public List<Pessoa> list(){
         return pessoaRepository.list();
     }
-    public Pessoa update(Integer id, Pessoa pessoaAtualizada) throws  Exception {
-        return pessoaRepository.update(id, pessoaAtualizada);
+    public Pessoa update(Integer id,
+                         Pessoa pessoaAtualizar) throws Exception {
+        Pessoa pessoaRecuperada = returnPersonById(id);
+        pessoaRecuperada.setCpf(pessoaAtualizar.getCpf());
+        pessoaRecuperada.setNome(pessoaAtualizar.getNome());
+        pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
+        return pessoaRecuperada;
     }
-    public void delete(Integer id) throws Exception{
-        pessoaRepository.delete(id);
+    public void delete(Integer id) throws Exception {
+        Pessoa pessoaRecuperada = returnPersonById(id);
+        pessoaRepository.list().remove(pessoaRecuperada);
     }
+
     public List<Pessoa> listByName(String nome){
         return pessoaRepository.listByName(nome);
     }
 
-    public boolean verificarNullPessoa(Pessoa pessoa) {
-        return (pessoa != null && StringUtils.isBlank(pessoa.getNome())
-                && StringUtils.isBlank(pessoa.getCpf())
-                && pessoa.getDataNascimento() == null);
+    public void verificarId(Integer idPessoa) throws  Exception{
+        pessoaRepository.list().stream()
+                .filter(pessoa -> pessoa.getIdPessoa().equals(idPessoa))
+                .findFirst()
+                .orElseThrow(() -> new Exception(("ID da pessoa invalido ou inexistente")));
+    }
+
+    public Pessoa returnPersonById(Integer id) throws Exception {
+        return pessoaRepository.list().stream()
+                .filter(pessoa -> pessoa.getIdPessoa().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Pessoa não econtrada"));
     }
 }

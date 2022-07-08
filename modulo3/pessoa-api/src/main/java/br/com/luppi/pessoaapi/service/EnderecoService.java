@@ -23,13 +23,7 @@ public class EnderecoService {
 
 
     public Endereco create(Integer id, Endereco endereco) throws Exception {
-        if(verificarCamposNulos(endereco)) {
-            throw new Exception("Os campos nao podem ser nulos");
-        }
-        Pessoa pessoa = pessoaRepository.list().stream()
-                .filter(x -> x.getIdPessoa().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new Exception("Pessoa nao encontrada"));
+        Pessoa pessoa = pessoaService.returnPersonById(id);
         endereco.setIdPessoa(pessoa.getIdPessoa());
         return enderecoRepository.create(endereco);
     }
@@ -39,9 +33,6 @@ public class EnderecoService {
     }
 
     public Endereco update(Integer id, Endereco enderecoAtualizado) throws Exception {
-        if(verificarCamposNulos(enderecoAtualizado)) {
-            throw new Exception("Os campos nao podem ser nulos");
-        }
         Endereco enderecoRecuperado = recuperarEnderecoPorIdEndereco(id);
         enderecoRecuperado.setIdPessoa(enderecoAtualizado.getIdPessoa());
         enderecoRecuperado.setTipo(enderecoAtualizado.getTipo());
@@ -60,7 +51,7 @@ public class EnderecoService {
     }
 
     public List<Endereco> listByPersonId(Integer id) throws Exception {
-        verificarIdPessoa(id);
+        pessoaService.verificarId(id);
         return enderecoRepository.list().stream()
                 .filter(endereco -> endereco.getIdPessoa().equals(id))
                 .collect(Collectors.toList());
@@ -78,24 +69,5 @@ public class EnderecoService {
                 .filter(endereco -> endereco.getIdEndereco().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new Exception("Endereco nao encontrado"));
-    }
-
-    private void verificarIdPessoa(Integer idPessoa) throws  Exception{
-        pessoaService.list().stream()
-                .filter(pessoa -> pessoa.getIdPessoa().equals(idPessoa))
-                .findFirst()
-                .orElseThrow(() -> new Exception(("ID da pessoa invalido ou inexistente")));
-    }
-
-    private boolean verificarCamposNulos(Endereco endereco) {
-        return (endereco != null
-                && endereco.getIdPessoa() == null
-                && endereco.getTipo() == null
-                && endereco.getLogradouro() == null
-                && endereco.getNumero() == null
-                && endereco.getComplemento() == null
-                && endereco.getCidade() == null
-                && endereco.getEstado() == null
-                && endereco.getPais() == null);
     }
 }

@@ -21,9 +21,7 @@ public class ContatoService {
 
 
     public Contato create(Integer id, Contato contato) throws Exception {
-        Pessoa pessoa = pessoaRepository.list().stream()
-                .filter(c -> c.getIdPessoa().equals(id))
-                .findFirst().orElseThrow(() -> new Exception("Pessoa nao encontrada"));
+        Pessoa pessoa = pessoaService.returnPersonById(id);
         contato.setIdPessoa(pessoa.getIdPessoa());
         return contatoRepository.create(contato);
     }
@@ -39,25 +37,19 @@ public class ContatoService {
         return contatoRecuperado;
     }
 
-
     public void delete(Integer id) throws Exception {
         Contato contatoRecuperado = recuperarContatoPorIdContato(id);
         contatoRepository.list().remove(contatoRecuperado);
     }
 
     public List<Contato> listByPersonId(Integer id) throws Exception {
-        verificarIdPessoa(id);
+        pessoaService.verificarId(id);
         return contatoRepository.list().stream()
                 .filter(contato -> contato.getIdPessoa().equals(id))
                 .collect(Collectors.toList());
     }
 
-    private void verificarIdPessoa(Integer idPessoa) throws  Exception{
-        pessoaService.list().stream()
-                .filter(pessoa -> pessoa.getIdPessoa().equals(idPessoa))
-                .findFirst()
-                .orElseThrow(() -> new Exception(("ID da pessoa invalido ou inexistente")));
-    }
+
 
     private Contato recuperarContatoPorIdContato(Integer id) throws Exception {
         return contatoRepository.list().stream()
