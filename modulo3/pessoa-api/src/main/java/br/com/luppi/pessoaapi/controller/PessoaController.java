@@ -47,9 +47,9 @@ public class PessoaController {
     }
 
     @PutMapping("/{idPessoa}") // localhost:8080/pessoa/1000
-    public Pessoa update(@PathVariable("idPessoa") Integer id,
+    public ResponseEntity<Pessoa> update(@PathVariable("idPessoa") Integer id,
                          @RequestBody @Valid Pessoa pessoaAtualizar) throws Exception {
-        return pessoaService.update(id, pessoaAtualizar);
+        return ResponseEntity.ok(pessoaService.update(id, pessoaAtualizar));
     }
 
     @DeleteMapping("/{idPessoa}")
