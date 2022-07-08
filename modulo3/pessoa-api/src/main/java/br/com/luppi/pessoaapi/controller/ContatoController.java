@@ -28,7 +28,7 @@ public class ContatoController {
     }
 
     @PutMapping("/{idContato}")
-    public ResponseEntity<Contato>  update(@PathVariable("idContato") Integer id,
+    public ResponseEntity<Contato> update(@PathVariable("idContato") Integer id,
                           @RequestBody @Valid Contato contatoAtualizado) throws Exception {
         return ResponseEntity.ok(contatoService.update(id, contatoAtualizado));
     }
