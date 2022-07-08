@@ -8,7 +8,7 @@ public class Contato {
     private Integer idContato;
     private Integer idPessoa;
 
-//    @NotNull(message = "Tipo do contato nao pode ser nulo")
+    @NotNull(message = "Tipo do contato nao pode ser nulo")
     private TipoContato tipoContato;
 
     @Size(min=3, max=13)
