@@ -3,9 +3,12 @@ package br.com.luppi.pessoaapi.controller;
 import br.com.luppi.pessoaapi.entity.Contato;
 import br.com.luppi.pessoaapi.service.ContatoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
+import javax.validation.Valid;
+import java.util.List;
+@Validated
 @RestController
 @RequestMapping("/contato")
 public class ContatoController {
@@ -14,7 +17,7 @@ public class ContatoController {
 
     @PostMapping("/{idPessoa}")
     public Contato create(@PathVariable("idPessoa") Integer id,
-                          @RequestBody Contato contato) throws Exception {
+                          @RequestBody @Valid Contato contato) throws Exception {
         return contatoService.create(id, contato);
     }
 
@@ -25,7 +28,7 @@ public class ContatoController {
 
     @PutMapping("/{idContato}")
     public Contato update(@PathVariable("idContato") Integer id,
-                          @RequestBody Contato contatoAtualizado) throws Exception {
+                          @RequestBody @Valid Contato contatoAtualizado) throws Exception {
         return contatoService.update(id, contatoAtualizado);
     }
 

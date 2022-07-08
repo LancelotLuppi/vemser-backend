@@ -23,6 +23,7 @@ public class ContatoRepository {
 
     public Contato update(Contato contatoRecuperado, Contato contatoAtualizado) {
         contatoRecuperado.setIdPessoa(contatoAtualizado.getIdPessoa());
+        contatoRecuperado.setTipoContato(contatoAtualizado.getTipoContato());
         contatoRecuperado.setTelefone(contatoAtualizado.getTelefone());
         contatoRecuperado.setDescricao(contatoAtualizado.getDescricao());
         return contatoRecuperado;

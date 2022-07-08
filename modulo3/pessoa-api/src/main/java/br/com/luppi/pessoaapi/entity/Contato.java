@@ -1,10 +1,20 @@
 package br.com.luppi.pessoaapi.entity;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Contato {
     private Integer idContato;
     private Integer idPessoa;
+
+//    @NotNull(message = "Tipo do contato nao pode ser nulo")
     private TipoContato tipoContato;
+
+    @Size(min=3, max=13)
+    @NotBlank(message = "Numero nao pode ser nulo ou em branco")
     private String telefone;
+    @NotBlank(message = "Descricao nao pode ser nulo ou em branco")
     private String descricao;
 
     public Contato( Integer idPessoa, Integer idContato, TipoContato tipoContato , String telefone, String descricao) {
@@ -29,6 +39,14 @@ public class Contato {
 
     public void setIdPessoa(Integer idPessoa) {
         this.idPessoa = idPessoa;
+    }
+
+    public TipoContato getTipoContato() {
+        return tipoContato;
+    }
+
+    public void setTipoContato(TipoContato tipoContato) {
+        this.tipoContato = tipoContato;
     }
 
     public String getTelefone() {
