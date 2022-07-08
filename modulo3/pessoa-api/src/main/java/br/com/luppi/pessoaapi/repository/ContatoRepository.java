@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Repository
 public class ContatoRepository {
 
-    private static List<Contato> listaContatos = new ArrayList<>();
+    private List<Contato> listaContatos = new ArrayList<>();
     private AtomicInteger COUNTER = new AtomicInteger();
 
 
