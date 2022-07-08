@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PessoaService {
@@ -19,21 +20,21 @@ public class PessoaService {
     public List<Pessoa> list(){
         return pessoaRepository.list();
     }
-    public Pessoa update(Integer id,
-                         Pessoa pessoaAtualizar) throws Exception {
+
+    public Pessoa update(Integer id, Pessoa pessoaAtualizada) throws Exception {
         Pessoa pessoaRecuperada = returnPersonById(id);
-        pessoaRecuperada.setCpf(pessoaAtualizar.getCpf());
-        pessoaRecuperada.setNome(pessoaAtualizar.getNome());
-        pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
-        return pessoaRecuperada;
-    }
-    public void delete(Integer id) throws Exception {
-        Pessoa pessoaRecuperada = returnPersonById(id);
-        pessoaRepository.list().remove(pessoaRecuperada);
+        return pessoaRepository.update(pessoaRecuperada, pessoaAtualizada);
     }
 
-    public List<Pessoa> listByName(String nome){
-        return pessoaRepository.listByName(nome);
+    public void delete(Integer id) throws Exception {
+        Pessoa pessoaRecuperada = returnPersonById(id);
+        pessoaRepository.delete(pessoaRecuperada);
+    }
+
+    public List<Pessoa> listByName(String nome) {
+        return pessoaRepository.list().stream()
+                .filter(pessoa -> pessoa.getNome().toUpperCase().contains(nome.toUpperCase()))
+                .collect(Collectors.toList());
     }
 
     public void verificarId(Integer idPessoa) throws  Exception{

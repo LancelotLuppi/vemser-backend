@@ -30,17 +30,20 @@ public class PessoaRepository {
         return pessoa;
     }
 
+    public Pessoa update(Pessoa pessoaRecuperada, Pessoa pessoaAtualizada) {
+        pessoaRecuperada.setCpf(pessoaAtualizada.getCpf());
+        pessoaRecuperada.setNome(pessoaAtualizada.getNome());
+        pessoaRecuperada.setDataNascimento(pessoaAtualizada.getDataNascimento());
+        return pessoaRecuperada;
+    }
+
+    public void delete(Pessoa pessoa) {
+        listaPessoas.remove(pessoa);
+    }
+
     public List<Pessoa> list() {
         return listaPessoas;
     }
 
 
-
-
-
-    public List<Pessoa> listByName(String nome) {
-        return listaPessoas.stream()
-                .filter(pessoa -> pessoa.getNome().toUpperCase().contains(nome.toUpperCase()))
-                .collect(Collectors.toList());
-    }
 }
