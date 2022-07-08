@@ -16,7 +16,23 @@ public class EnderecoRepository {
     public Endereco create(Endereco endereco) {
         endereco.setIdEndereco(COUNTER.incrementAndGet());
         listaEnderecos.add(endereco);
-        return  endereco;
+        return endereco;
+    }
+
+    public Endereco update(Endereco enderecoRecuperado, Endereco enderecoAtualizado) {
+        enderecoRecuperado.setIdPessoa(enderecoAtualizado.getIdPessoa());
+        enderecoRecuperado.setTipo(enderecoAtualizado.getTipo());
+        enderecoRecuperado.setLogradouro(enderecoAtualizado.getLogradouro());
+        enderecoRecuperado.setNumero(enderecoAtualizado.getNumero());
+        enderecoRecuperado.setComplemento(enderecoAtualizado.getComplemento());
+        enderecoRecuperado.setCidade(enderecoAtualizado.getCidade());
+        enderecoRecuperado.setEstado(enderecoAtualizado.getEstado());
+        enderecoRecuperado.setPais(enderecoAtualizado.getPais());
+        return enderecoRecuperado;
+    }
+
+    public void delete(Endereco endereco) {
+        listaEnderecos.remove(endereco);
     }
 
     public List<Endereco> list() {

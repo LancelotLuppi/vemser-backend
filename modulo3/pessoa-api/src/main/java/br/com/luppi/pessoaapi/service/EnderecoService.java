@@ -34,20 +34,12 @@ public class EnderecoService {
 
     public Endereco update(Integer id, Endereco enderecoAtualizado) throws Exception {
         Endereco enderecoRecuperado = recuperarEnderecoPorIdEndereco(id);
-        enderecoRecuperado.setIdPessoa(enderecoAtualizado.getIdPessoa());
-        enderecoRecuperado.setTipo(enderecoAtualizado.getTipo());
-        enderecoRecuperado.setLogradouro(enderecoAtualizado.getLogradouro());
-        enderecoRecuperado.setNumero(enderecoAtualizado.getNumero());
-        enderecoRecuperado.setComplemento(enderecoAtualizado.getComplemento());
-        enderecoRecuperado.setCidade(enderecoAtualizado.getCidade());
-        enderecoRecuperado.setEstado(enderecoAtualizado.getEstado());
-        enderecoRecuperado.setPais(enderecoAtualizado.getPais());
-        return enderecoRecuperado;
+        return enderecoRepository.update(enderecoRecuperado, enderecoAtualizado);
     }
 
     public void delete(Integer id) throws Exception {
         Endereco enderecoRecuperado = recuperarEnderecoPorIdEndereco(id);
-        enderecoRepository.list().remove(enderecoRecuperado);
+        enderecoRepository.delete(enderecoRecuperado);
     }
 
     public List<Endereco> listByPersonId(Integer id) throws Exception {
