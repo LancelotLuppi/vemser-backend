@@ -3,8 +3,8 @@ package br.com.luppi.pessoaapi.entity;
 import java.util.Arrays;
 
 public enum TipoContato {
-    COMERCIAL(1),
-    RESIDENCIAL(2);
+    COMERCIAL(0),
+    RESIDENCIAL(1);
 
     private Integer tipo;
 
