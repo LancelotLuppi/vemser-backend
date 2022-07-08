@@ -21,6 +21,16 @@ public class ContatoRepository {
         return contato;
     }
 
+    public Contato update(Contato contatoRecuperado, Contato contatoAtualizado) {
+        contatoRecuperado.setIdPessoa(contatoAtualizado.getIdPessoa());
+        contatoRecuperado.setTelefone(contatoAtualizado.getTelefone());
+        contatoRecuperado.setDescricao(contatoAtualizado.getDescricao());
+        return contatoRecuperado;
+    }
+
+    public void delete(Contato contato) {
+        listaContatos.remove(contato);
+    }
 
     public List<Contato> list() {
         return listaContatos;

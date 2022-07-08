@@ -49,7 +49,8 @@ public class EnderecoService {
                 .collect(Collectors.toList());
     }
 
-    public List<Endereco> listByAddressId(Integer id) {
+    public List<Endereco> listByAddressId(Integer id) throws Exception {
+        verificarId(id);
         return enderecoRepository.list().stream()
                 .filter(endereco -> endereco.getIdEndereco().equals(id))
                 .collect(Collectors.toList());
@@ -61,5 +62,12 @@ public class EnderecoService {
                 .filter(endereco -> endereco.getIdEndereco().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new Exception("Endereco nao encontrado"));
+    }
+
+    private void verificarId(Integer id) throws Exception {
+        enderecoRepository.list().stream()
+                .filter(endereco -> endereco.getIdPessoa().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new Exception(("ID do endereco invalido ou inexistente")));
     }
 }

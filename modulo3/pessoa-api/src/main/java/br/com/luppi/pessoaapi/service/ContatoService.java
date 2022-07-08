@@ -31,15 +31,12 @@ public class ContatoService {
 
     public Contato update(Integer id,Contato contatoAtualizado) throws Exception {
         Contato contatoRecuperado = recuperarContatoPorIdContato(id);
-        contatoRecuperado.setIdPessoa(contatoAtualizado.getIdPessoa());
-        contatoRecuperado.setTelefone(contatoAtualizado.getTelefone());
-        contatoRecuperado.setDescricao(contatoAtualizado.getDescricao());
-        return contatoRecuperado;
+        return contatoRepository.update(contatoRecuperado, contatoAtualizado);
     }
 
     public void delete(Integer id) throws Exception {
         Contato contatoRecuperado = recuperarContatoPorIdContato(id);
-        contatoRepository.list().remove(contatoRecuperado);
+        contatoRepository.delete(contatoRecuperado);
     }
 
     public List<Contato> listByPersonId(Integer id) throws Exception {
