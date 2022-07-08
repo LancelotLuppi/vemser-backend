@@ -24,7 +24,7 @@ public class EnderecoRepository {
         enderecoRecuperado.setTipo(enderecoAtualizado.getTipo());
         enderecoRecuperado.setLogradouro(enderecoAtualizado.getLogradouro());
         enderecoRecuperado.setNumero(enderecoAtualizado.getNumero());
-        enderecoRecuperado.setComplemento(enderecoAtualizado.getComplemento());
+        enderecoRecuperado.setCep(enderecoAtualizado.getCep());
         enderecoRecuperado.setCidade(enderecoAtualizado.getCidade());
         enderecoRecuperado.setEstado(enderecoAtualizado.getEstado());
         enderecoRecuperado.setPais(enderecoAtualizado.getPais());

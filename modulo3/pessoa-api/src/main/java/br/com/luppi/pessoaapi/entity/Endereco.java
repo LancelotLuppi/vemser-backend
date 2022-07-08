@@ -1,14 +1,28 @@
 package br.com.luppi.pessoaapi.entity;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Endereco {
     private Integer idEndereco;
     private Integer idPessoa;
+    @NotNull(message = "Insira um tipo para o endereco")
     private TipoEndereco tipo;
+    @Size(min=3, max=250)
+    @NotBlank(message = "Informe um logradouro")
     private String logradouro;
+    @NotBlank(message = "Informe um numero")
     private Integer numero;
-    private String complemento;
+    @Size(min=8, max=8)
+    @NotBlank(message = "Informe um CEP valido")
+    private String cep;
+    @Size(min=2, max=250)
+    @NotBlank(message = "Informe uma cidade")
     private String cidade;
+    @NotNull
     private String estado;
+    @NotNull
     private String pais;
 
     public Integer getIdEndereco() {
@@ -51,12 +65,12 @@ public class Endereco {
         this.numero = numero;
     }
 
-    public String getComplemento() {
-        return complemento;
+    public String getCep() {
+        return cep;
     }
 
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
     public String getCidade() {
@@ -90,7 +104,7 @@ public class Endereco {
                 ", tipo=" + tipo +
                 ", logradouro='" + logradouro + '\'' +
                 ", numero=" + numero +
-                ", complemento='" + complemento + '\'' +
+                ", complemento='" + cep + '\'' +
                 ", cidade='" + cidade + '\'' +
                 ", estado='" + estado + '\'' +
                 ", pais='" + pais + '\'' +
