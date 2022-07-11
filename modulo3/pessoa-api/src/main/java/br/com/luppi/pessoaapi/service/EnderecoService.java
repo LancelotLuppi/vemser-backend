@@ -77,7 +77,7 @@ public class EnderecoService {
 
     private void verificarId(Integer id) throws RegraDeNegocioException {
         enderecoRepository.list().stream()
-                .filter(endereco -> endereco.getIdPessoa().equals(id))
+                .filter(endereco -> endereco.getIdEndereco().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new RegraDeNegocioException(("ID do endereco invalido ou inexistente")));
     }
