@@ -1,5 +1,7 @@
 package br.com.luppi.pessoaapi.controller;
 import br.com.luppi.pessoaapi.config.PropertiesReader;
+import br.com.luppi.pessoaapi.dto.PessoaCreateDTO;
+import br.com.luppi.pessoaapi.dto.PessoaDTO;
 import br.com.luppi.pessoaapi.entity.Pessoa;
 import br.com.luppi.pessoaapi.service.PessoaService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,26 +36,24 @@ public class PessoaController {
     }
 
     @PostMapping
-    public ResponseEntity<Pessoa> create(@Valid @RequestBody Pessoa pessoa) throws Exception {
-        Pessoa p = pessoaService.create(pessoa);
-        log.info("Criando a pessoa " + p);
-        return ResponseEntity.ok(p);
+    public ResponseEntity<PessoaDTO> create(@Valid @RequestBody PessoaCreateDTO pessoa) throws Exception {
+        return ResponseEntity.ok(pessoaService.create(pessoa));
     }
 
     @GetMapping // localhost:8080/pessoa
-    public List<Pessoa> list() {
-        return pessoaService.list();
+    public ResponseEntity<List<PessoaDTO>> list() {
+        return ResponseEntity.ok(pessoaService.list());
     }
 
     @GetMapping("/byname")
-    public List<Pessoa> listByName(@RequestParam("nome") String nome){
-        return pessoaService.listByName(nome);
+    public ResponseEntity<List<PessoaDTO>> listByName(@RequestParam("nome") String nome){
+        return ResponseEntity.ok(pessoaService.listByName(nome));
     }
 
     @PutMapping("/{idPessoa}") // localhost:8080/pessoa/1000
-    public ResponseEntity<Pessoa> update(@PathVariable("idPessoa") Integer id,
-                         @RequestBody @Valid Pessoa pessoaAtualizar) throws Exception {
-        return ResponseEntity.ok(pessoaService.update(id, pessoaAtualizar));
+    public ResponseEntity<PessoaDTO> update(@PathVariable("idPessoa") Integer id,
+                         @RequestBody @Valid PessoaCreateDTO pessoaAtualizada) throws Exception {
+        return ResponseEntity.ok(pessoaService.update(id, pessoaAtualizada));
     }
 
     @DeleteMapping("/{idPessoa}")

@@ -1,7 +1,10 @@
 package br.com.luppi.pessoaapi.service;
+import br.com.luppi.pessoaapi.dto.PessoaCreateDTO;
+import br.com.luppi.pessoaapi.dto.PessoaDTO;
 import br.com.luppi.pessoaapi.entity.Pessoa;
 import br.com.luppi.pessoaapi.exception.RegraDeNegocioException;
 import br.com.luppi.pessoaapi.repository.PessoaRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,17 +15,23 @@ import java.util.stream.Collectors;
 public class PessoaService {
     @Autowired
     private  PessoaRepository pessoaRepository;
+    @Autowired
+    private ObjectMapper objectMapper;
 
-    public Pessoa create(Pessoa pessoa) throws RegraDeNegocioException {
-        return pessoaRepository.create(pessoa);
+    public PessoaDTO create(PessoaCreateDTO pessoaDto) throws RegraDeNegocioException {
+        Pessoa pessoa = objectMapper.convertValue(pessoaDto, Pessoa.class);
+        return objectMapper.convertValue(pessoaRepository.create(pessoa), PessoaDTO.class) ;
     }
-    public List<Pessoa> list(){
-        return pessoaRepository.list();
+    public List<PessoaDTO> list(){
+        return pessoaRepository.list().stream()
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
+                .collect(Collectors.toList());
     }
 
-    public Pessoa update(Integer id, Pessoa pessoaAtualizada) throws RegraDeNegocioException {
+    public PessoaDTO update(Integer id, PessoaCreateDTO pessoaDto) throws RegraDeNegocioException {
+        Pessoa pessoaAtualizada = objectMapper.convertValue(pessoaDto, Pessoa.class);
         Pessoa pessoaRecuperada = returnPersonById(id);
-        return pessoaRepository.update(pessoaRecuperada, pessoaAtualizada);
+        return objectMapper.convertValue(pessoaRepository.update(pessoaRecuperada, pessoaAtualizada), PessoaDTO.class) ;
     }
 
     public void delete(Integer id) throws RegraDeNegocioException {
@@ -30,9 +39,10 @@ public class PessoaService {
         pessoaRepository.delete(pessoaRecuperada);
     }
 
-    public List<Pessoa> listByName(String nome) {
+    public List<PessoaDTO> listByName(String nome) {
         return pessoaRepository.list().stream()
                 .filter(pessoa -> pessoa.getNome().toUpperCase().contains(nome.toUpperCase()))
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
                 .collect(Collectors.toList());
     }
 
