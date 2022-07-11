@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public class EnderecoRepository {
 
-    private List<Endereco> listaEnderecos = new ArrayList<>();
+    private static List<Endereco> listaEnderecos = new ArrayList<>();
     private AtomicInteger COUNTER = new AtomicInteger();
 
     public Endereco create(Endereco endereco) {
