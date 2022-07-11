@@ -2,7 +2,6 @@ package br.com.luppi.pessoaapi.controller;
 
 import br.com.luppi.pessoaapi.dto.EnderecoCreateDTO;
 import br.com.luppi.pessoaapi.dto.EnderecoDTO;
-import br.com.luppi.pessoaapi.entity.Endereco;
 import br.com.luppi.pessoaapi.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

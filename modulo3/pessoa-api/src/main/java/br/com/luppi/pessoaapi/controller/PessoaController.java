@@ -2,7 +2,6 @@ package br.com.luppi.pessoaapi.controller;
 import br.com.luppi.pessoaapi.config.PropertiesReader;
 import br.com.luppi.pessoaapi.dto.PessoaCreateDTO;
 import br.com.luppi.pessoaapi.dto.PessoaDTO;
-import br.com.luppi.pessoaapi.entity.Pessoa;
 import br.com.luppi.pessoaapi.service.PessoaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @RestController

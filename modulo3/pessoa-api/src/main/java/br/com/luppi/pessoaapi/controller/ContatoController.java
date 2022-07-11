@@ -2,7 +2,6 @@ package br.com.luppi.pessoaapi.controller;
 
 import br.com.luppi.pessoaapi.dto.ContatoCreateDTO;
 import br.com.luppi.pessoaapi.dto.ContatoDTO;
-import br.com.luppi.pessoaapi.entity.Contato;
 import br.com.luppi.pessoaapi.service.ContatoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
