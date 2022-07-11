@@ -28,18 +28,18 @@ public class ContatoService {
         pessoaService.verificarId(id);
         contatoDto.setIdPessoa(id);
         Contato contato = converterDTO(contatoDto);
-        return voltarParaDTO(contatoRepository.create(contato));
+        return retornarDTO(contatoRepository.create(contato));
     }
     public List<ContatoDTO> list(){
         return contatoRepository.list().stream()
-                .map(this::voltarParaDTO)
+                .map(this::retornarDTO)
                 .collect(Collectors.toList());
     }
 
     public ContatoDTO update(Integer id,ContatoCreateDTO contatoDto) throws Exception {
         Contato contatoAtualizado = converterDTO(contatoDto);
         Contato contatoRecuperado = recuperarContatoPorIdContato(id);
-        return voltarParaDTO(contatoRepository.update(contatoRecuperado, contatoAtualizado)) ;
+        return retornarDTO(contatoRepository.update(contatoRecuperado, contatoAtualizado)) ;
     }
 
     public void delete(Integer id) throws Exception {
@@ -51,7 +51,7 @@ public class ContatoService {
         pessoaService.verificarId(id);
         return contatoRepository.list().stream()
                 .filter(contato -> contato.getIdPessoa().equals(id))
-                .map(this::voltarParaDTO)
+                .map(this::retornarDTO)
                 .collect(Collectors.toList());
     }
 
@@ -70,7 +70,7 @@ public class ContatoService {
         return objectMapper.convertValue(dto, Contato.class);
     }
 
-    private ContatoDTO voltarParaDTO(Contato contato) {
+    private ContatoDTO retornarDTO(Contato contato) {
         return objectMapper.convertValue(contato, ContatoDTO.class);
     }
 }
