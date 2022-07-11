@@ -16,15 +16,8 @@ import java.time.LocalDate;
 public class Pessoa {
 
     private Integer idPessoa;
-
-    @NotBlank(message = "O nome nao pode ser nulo")
     private String nome;
-
-    @Past
-    @NotNull(message= "A data nao pode ser nula")
     private LocalDate dataNascimento;
-
-    @CPF
     private String cpf;
 
 }
