@@ -32,20 +32,20 @@ public class EnderecoService {
     public EnderecoDTO create(Integer id, EnderecoCreateDTO enderecoDTO) throws RegraDeNegocioException {
         pessoaService.verificarId(id);
         enderecoDTO.setIdPessoa(id);
-        Endereco endereco = objectMapper.convertValue(enderecoDTO, Endereco.class);
-        return objectMapper.convertValue(enderecoRepository.create(endereco), EnderecoDTO.class) ;
+        Endereco endereco = converterDTO(enderecoDTO);
+        return retornarDTO(enderecoRepository.create(endereco));
     }
 
     public List<EnderecoDTO> list() {
         return enderecoRepository.list().stream()
-                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                .map(this::retornarDTO)
                 .collect(Collectors.toList());
     }
 
     public EnderecoDTO update(Integer id, EnderecoCreateDTO enderecoDTO) throws RegraDeNegocioException {
-        Endereco enderecoAtualizado = objectMapper.convertValue(enderecoDTO, Endereco.class);
+        Endereco enderecoAtualizado = converterDTO(enderecoDTO);
         Endereco enderecoRecuperado = recuperarEnderecoPorIdEndereco(id);
-        return objectMapper.convertValue(enderecoRepository.update(enderecoRecuperado, enderecoAtualizado), EnderecoDTO.class) ;
+        return retornarDTO(enderecoRepository.update(enderecoRecuperado, enderecoAtualizado));
     }
 
     public void delete(Integer id) throws RegraDeNegocioException {
@@ -57,7 +57,7 @@ public class EnderecoService {
         pessoaService.verificarId(id);
         return enderecoRepository.list().stream()
                 .filter(endereco -> endereco.getIdPessoa().equals(id))
-                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                .map(this::retornarDTO)
                 .collect(Collectors.toList());
     }
 
@@ -65,7 +65,7 @@ public class EnderecoService {
         verificarId(id);
         return enderecoRepository.list().stream()
                 .filter(endereco -> endereco.getIdEndereco().equals(id))
-                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                .map(this::retornarDTO)
                 .collect(Collectors.toList());
     }
 
@@ -82,5 +82,13 @@ public class EnderecoService {
                 .filter(endereco -> endereco.getIdPessoa().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new RegraDeNegocioException(("ID do endereco invalido ou inexistente")));
+    }
+
+    public Endereco converterDTO(EnderecoCreateDTO dto) {
+        return objectMapper.convertValue(dto, Endereco.class);
+    }
+
+    public EnderecoDTO retornarDTO(Endereco endereco) {
+        return objectMapper.convertValue(endereco, EnderecoDTO.class);
     }
 }
