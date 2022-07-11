@@ -1,11 +1,9 @@
 package br.com.luppi.pessoaapi.service;
 
 
-import br.com.luppi.pessoaapi.controller.EnderecoController;
 import br.com.luppi.pessoaapi.dto.EnderecoCreateDTO;
 import br.com.luppi.pessoaapi.dto.EnderecoDTO;
 import br.com.luppi.pessoaapi.entity.Endereco;
-import br.com.luppi.pessoaapi.entity.Pessoa;
 import br.com.luppi.pessoaapi.exception.RegraDeNegocioException;
 import br.com.luppi.pessoaapi.repository.EnderecoRepository;
 import br.com.luppi.pessoaapi.repository.PessoaRepository;
