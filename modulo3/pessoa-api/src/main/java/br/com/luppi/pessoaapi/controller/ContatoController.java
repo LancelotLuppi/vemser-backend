@@ -1,5 +1,7 @@
 package br.com.luppi.pessoaapi.controller;
 
+import br.com.luppi.pessoaapi.dto.ContatoCreateDTO;
+import br.com.luppi.pessoaapi.dto.ContatoDTO;
 import br.com.luppi.pessoaapi.entity.Contato;
 import br.com.luppi.pessoaapi.service.ContatoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +19,19 @@ public class ContatoController {
     private ContatoService contatoService;
 
     @PostMapping("/{idPessoa}")
-    public ResponseEntity<Contato> create(@PathVariable("idPessoa") Integer id,
-                                 @RequestBody @Valid Contato contato) throws Exception {
+    public ResponseEntity<ContatoDTO> create(@PathVariable("idPessoa") Integer id,
+                                             @RequestBody @Valid ContatoCreateDTO contato) throws Exception {
         return ResponseEntity.ok(contatoService.create(id, contato));
     }
 
     @GetMapping
-    public List<Contato> list() {
-        return contatoService.list();
+    public ResponseEntity<List<ContatoDTO>>  list() {
+        return ResponseEntity.ok(contatoService.list());
     }
 
     @PutMapping("/{idContato}")
-    public ResponseEntity<Contato> update(@PathVariable("idContato") Integer id,
-                          @RequestBody @Valid Contato contatoAtualizado) throws Exception {
+    public ResponseEntity<ContatoDTO> update(@PathVariable("idContato") Integer id,
+                          @RequestBody @Valid ContatoCreateDTO contatoAtualizado) throws Exception {
         return ResponseEntity.ok(contatoService.update(id, contatoAtualizado));
     }
 
@@ -39,7 +41,7 @@ public class ContatoController {
     }
 
     @GetMapping("/{idPessoa}")
-    public List<Contato> listByPersonId(@PathVariable("idPessoa") Integer id) throws Exception {
-        return contatoService.listByPersonId(id);
+    public ResponseEntity<List<ContatoDTO>> listByPersonId(@PathVariable("idPessoa") Integer id) throws Exception {
+        return ResponseEntity.ok(contatoService.listByPersonId(id));
     }
 }
