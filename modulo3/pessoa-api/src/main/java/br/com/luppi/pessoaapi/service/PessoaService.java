@@ -19,19 +19,19 @@ public class PessoaService {
     private ObjectMapper objectMapper;
 
     public PessoaDTO create(PessoaCreateDTO pessoaDto) throws RegraDeNegocioException {
-        Pessoa pessoa = objectMapper.convertValue(pessoaDto, Pessoa.class);
-        return objectMapper.convertValue(pessoaRepository.create(pessoa), PessoaDTO.class) ;
+        Pessoa pessoa = converterDTO(pessoaDto);
+        return retornarDTO(pessoaRepository.create(pessoa));
     }
     public List<PessoaDTO> list(){
         return pessoaRepository.list().stream()
-                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
+                .map(this::retornarDTO)
                 .collect(Collectors.toList());
     }
 
     public PessoaDTO update(Integer id, PessoaCreateDTO pessoaDto) throws RegraDeNegocioException {
-        Pessoa pessoaAtualizada = objectMapper.convertValue(pessoaDto, Pessoa.class);
+        Pessoa pessoaAtualizada = converterDTO(pessoaDto);
         Pessoa pessoaRecuperada = returnPersonById(id);
-        return objectMapper.convertValue(pessoaRepository.update(pessoaRecuperada, pessoaAtualizada), PessoaDTO.class) ;
+        return retornarDTO(pessoaRepository.update(pessoaRecuperada, pessoaAtualizada));
     }
 
     public void delete(Integer id) throws RegraDeNegocioException {
@@ -42,7 +42,7 @@ public class PessoaService {
     public List<PessoaDTO> listByName(String nome) {
         return pessoaRepository.list().stream()
                 .filter(pessoa -> pessoa.getNome().toUpperCase().contains(nome.toUpperCase()))
-                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
+                .map(this::retornarDTO)
                 .collect(Collectors.toList());
     }
 
@@ -58,5 +58,13 @@ public class PessoaService {
                 .filter(pessoa -> pessoa.getIdPessoa().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new RegraDeNegocioException("Pessoa não econtrada"));
+    }
+
+    public Pessoa converterDTO(PessoaCreateDTO dto) {
+        return objectMapper.convertValue(dto, Pessoa.class);
+    }
+
+    public PessoaDTO retornarDTO(Pessoa pessoa) {
+        return objectMapper.convertValue(pessoa, PessoaDTO.class);
     }
 }
