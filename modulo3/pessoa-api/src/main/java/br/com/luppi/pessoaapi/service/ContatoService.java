@@ -28,7 +28,7 @@ public class ContatoService {
     public ContatoDTO create(Integer id, ContatoCreateDTO contatoDto) throws RegraDeNegocioException {
         pessoaService.verificarId(id);
         contatoDto.setIdPessoa(id);
-        Contato contato = converterDTO(contatoDto);
+        Contato contato = retornarEntidade(contatoDto);
         return retornarDTO(contatoRepository.create(contato));
     }
     public List<ContatoDTO> list(){
@@ -38,9 +38,9 @@ public class ContatoService {
     }
 
     public ContatoDTO update(Integer id,ContatoCreateDTO contatoDto) throws RegraDeNegocioException {
-        Contato contatoAtualizado = converterDTO(contatoDto);
+        Contato contatoAtualizado = retornarEntidade(contatoDto);
         Contato contatoRecuperado = recuperarContatoPorIdContato(id);
-        return retornarDTO(contatoRepository.update(contatoRecuperado, contatoAtualizado)) ;
+        return retornarDTO(contatoRepository.update(contatoRecuperado, contatoAtualizado));
     }
 
     public void delete(Integer id) throws RegraDeNegocioException {
@@ -67,7 +67,7 @@ public class ContatoService {
                 .orElseThrow(() -> new RegraDeNegocioException("Contato não encontrado"));
     }
 
-    private Contato converterDTO(ContatoCreateDTO dto) {
+    private Contato retornarEntidade(ContatoCreateDTO dto) {
         return objectMapper.convertValue(dto, Contato.class);
     }
 

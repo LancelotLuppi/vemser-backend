@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import br.com.luppi.pessoaapi.service.EmailService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -19,6 +20,8 @@ import java.util.List;
 public class PessoaController {
     @Autowired
     private PessoaService pessoaService;
+    @Autowired
+    private EmailService emailService;
     @Autowired
     private PropertiesReader propertiesReader;
 
@@ -61,6 +64,11 @@ public class PessoaController {
     @GetMapping("/ambiente")
     public String retornarPropertie() {
         return propertiesReader.getAmbiente();
+    }
+
+    @GetMapping("/email")
+    public void enviarEmail() {
+        emailService.sendSimpleMessage();
     }
 
 
