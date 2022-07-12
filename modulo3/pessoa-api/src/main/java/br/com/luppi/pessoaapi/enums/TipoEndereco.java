@@ -1,4 +1,4 @@
-package br.com.luppi.pessoaapi.entity;
+package br.com.luppi.pessoaapi.enums;
 
 import java.util.Arrays;
 

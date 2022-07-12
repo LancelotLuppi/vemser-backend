@@ -1,10 +1,7 @@
 package br.com.luppi.pessoaapi.entity;
 
+import br.com.luppi.pessoaapi.enums.TipoContato;
 import lombok.*;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Getter
 @Setter

@@ -30,12 +30,13 @@ public class EnderecoService {
     private EmailService emailService;
 
 
-    public EnderecoDTO create(Integer id, EnderecoCreateDTO enderecoDTO) throws RegraDeNegocioException {
+    public EnderecoDTO create(Integer id, EnderecoCreateDTO enderecoCreateDTO) throws RegraDeNegocioException {
         Pessoa pessoa = pessoaService.returnPersonById(id);
-        enderecoDTO.setIdPessoa(id);
-        Endereco endereco = returnEntity(enderecoDTO);
+        enderecoCreateDTO.setIdPessoa(id);
+        Endereco endereco = returnEntity(enderecoCreateDTO);
+        EnderecoDTO enderecoDto = retornarDTO(enderecoRepository.create(endereco));
         emailService.sendCreateEnderecoEmail(pessoa, endereco);
-        return retornarDTO(enderecoRepository.create(endereco));
+        return enderecoDto;
     }
 
     public List<EnderecoDTO> list() {
@@ -44,19 +45,20 @@ public class EnderecoService {
                 .collect(Collectors.toList());
     }
 
-    public EnderecoDTO update(Integer id, EnderecoCreateDTO enderecoDTO) throws RegraDeNegocioException {
-        Endereco enderecoAtualizado = returnEntity(enderecoDTO);
+    public EnderecoDTO update(Integer id, EnderecoCreateDTO enderecoCreateDTO) throws RegraDeNegocioException {
+        Endereco enderecoAtualizado = returnEntity(enderecoCreateDTO);
         Pessoa pessoa = pessoaService.returnPersonById(enderecoAtualizado.getIdPessoa());
         Endereco enderecoRecuperado = recuperarEnderecoPorIdEndereco(id);
+        EnderecoDTO enderecoDto = retornarDTO(enderecoRepository.update(enderecoRecuperado, enderecoAtualizado));
         emailService.sendUpdateEnderecoEmail(pessoa, enderecoAtualizado);
-        return retornarDTO(enderecoRepository.update(enderecoRecuperado, enderecoAtualizado));
+        return enderecoDto;
     }
 
     public void delete(Integer id) throws RegraDeNegocioException {
         Endereco enderecoRecuperado = recuperarEnderecoPorIdEndereco(id);
         Pessoa pessoa = pessoaService.returnPersonById(enderecoRecuperado.getIdPessoa());
-        emailService.sendDeleteEnderecoEmail(pessoa, enderecoRecuperado);
         enderecoRepository.delete(enderecoRecuperado);
+        emailService.sendDeleteEnderecoEmail(pessoa, enderecoRecuperado);
     }
 
     public List<EnderecoDTO> listByPersonId(Integer id) throws RegraDeNegocioException {

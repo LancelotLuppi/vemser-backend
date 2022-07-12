@@ -1,6 +1,6 @@
 package br.com.luppi.pessoaapi.dto;
 
-import br.com.luppi.pessoaapi.entity.TipoEndereco;
+import br.com.luppi.pessoaapi.enums.TipoEndereco;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
