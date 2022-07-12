@@ -2,6 +2,7 @@ package br.com.luppi.pessoaapi.controller;
 
 import br.com.luppi.pessoaapi.dto.EnderecoCreateDTO;
 import br.com.luppi.pessoaapi.dto.EnderecoDTO;
+import br.com.luppi.pessoaapi.exception.EntidadeNaoEncontradaException;
 import br.com.luppi.pessoaapi.exception.RegraDeNegocioException;
 import br.com.luppi.pessoaapi.service.EnderecoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,7 +34,7 @@ public class EnderecoController {
         )
     @PostMapping("/{idPessoa}")
     public ResponseEntity<EnderecoDTO> create(@PathVariable("idPessoa") Integer id,
-                                              @RequestBody @Valid EnderecoCreateDTO endereco) throws RegraDeNegocioException {
+                                              @RequestBody @Valid EnderecoCreateDTO endereco) throws RegraDeNegocioException, EntidadeNaoEncontradaException {
         return ResponseEntity.ok(enderecoService.create(id, endereco));
     }
 
@@ -58,7 +59,7 @@ public class EnderecoController {
                 }
         )
     @GetMapping("/{idEndereco}")
-    public ResponseEntity<List<EnderecoDTO>> listByAddressId(@PathVariable("idEndereco") Integer id) throws  RegraDeNegocioException{
+    public ResponseEntity<List<EnderecoDTO>> listByAddressId(@PathVariable("idEndereco") Integer id) throws EntidadeNaoEncontradaException {
         return ResponseEntity.ok(enderecoService.listByAddressId(id));
     }
 
@@ -71,7 +72,7 @@ public class EnderecoController {
                 }
         )
     @GetMapping("/{idPessoa}/pessoa")
-    public ResponseEntity<List<EnderecoDTO>>  listByPersonId(@PathVariable("idPessoa") Integer id) throws RegraDeNegocioException {
+    public ResponseEntity<List<EnderecoDTO>>  listByPersonId(@PathVariable("idPessoa") Integer id) throws RegraDeNegocioException, EntidadeNaoEncontradaException {
         return ResponseEntity.ok(enderecoService.listByPersonId(id));
     }
 
@@ -79,13 +80,13 @@ public class EnderecoController {
         @ApiResponses(
                 value = {
                         @ApiResponse(responseCode = "200", description = "Endereço atualizado com sucesso"),
-                        @ApiResponse(responseCode = "400", description = "{idEndereco} inválido"),
+                        @ApiResponse(responseCode = "404", description = "{idEndereco} inválido"),
                         @ApiResponse(responseCode = "500", description = "Exception gerada")
                 }
         )
     @PutMapping("/{idEndereco}")
     public ResponseEntity<EnderecoDTO> uptade(@PathVariable("idEndereco") Integer id,
-                                 @RequestBody @Valid EnderecoCreateDTO enderecoAtualizado) throws RegraDeNegocioException {
+                                 @RequestBody @Valid EnderecoCreateDTO enderecoAtualizado) throws RegraDeNegocioException, EntidadeNaoEncontradaException {
         return ResponseEntity.ok(enderecoService.update(id, enderecoAtualizado));
     }
 
@@ -98,7 +99,7 @@ public class EnderecoController {
                 }
         )
     @DeleteMapping("/{idEndereco}")
-    public void delete(@PathVariable("idEndereco") Integer id) throws RegraDeNegocioException {
+    public void delete(@PathVariable("idEndereco") Integer id) throws RegraDeNegocioException, EntidadeNaoEncontradaException {
         enderecoService.delete(id);
     }
 

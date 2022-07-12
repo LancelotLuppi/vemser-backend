@@ -3,6 +3,7 @@ package br.com.luppi.pessoaapi.service;
 import br.com.luppi.pessoaapi.dto.ContatoCreateDTO;
 import br.com.luppi.pessoaapi.dto.ContatoDTO;
 import br.com.luppi.pessoaapi.entity.Contato;
+import br.com.luppi.pessoaapi.exception.EntidadeNaoEncontradaException;
 import br.com.luppi.pessoaapi.exception.RegraDeNegocioException;
 import br.com.luppi.pessoaapi.repository.ContatoRepository;
 import br.com.luppi.pessoaapi.repository.PessoaRepository;
@@ -25,7 +26,7 @@ public class ContatoService {
     private ObjectMapper objectMapper;
 
 
-    public ContatoDTO create(Integer id, ContatoCreateDTO contatoDto) throws RegraDeNegocioException {
+    public ContatoDTO create(Integer id, ContatoCreateDTO contatoDto) throws RegraDeNegocioException, EntidadeNaoEncontradaException {
         pessoaService.verificarId(id);
         contatoDto.setIdPessoa(id);
         Contato contato = retornarEntidade(contatoDto);
@@ -37,18 +38,18 @@ public class ContatoService {
                 .collect(Collectors.toList());
     }
 
-    public ContatoDTO update(Integer id,ContatoCreateDTO contatoDto) throws RegraDeNegocioException {
+    public ContatoDTO update(Integer id,ContatoCreateDTO contatoDto) throws RegraDeNegocioException, EntidadeNaoEncontradaException {
         Contato contatoAtualizado = retornarEntidade(contatoDto);
         Contato contatoRecuperado = recuperarContatoPorIdContato(id);
         return retornarDTO(contatoRepository.update(contatoRecuperado, contatoAtualizado));
     }
 
-    public void delete(Integer id) throws RegraDeNegocioException {
+    public void delete(Integer id) throws RegraDeNegocioException, EntidadeNaoEncontradaException {
         Contato contatoRecuperado = recuperarContatoPorIdContato(id);
         contatoRepository.delete(contatoRecuperado);
     }
 
-    public List<ContatoDTO> listByPersonId(Integer id) throws RegraDeNegocioException {
+    public List<ContatoDTO> listByPersonId(Integer id) throws EntidadeNaoEncontradaException {
         pessoaService.verificarId(id);
         return contatoRepository.list().stream()
                 .filter(contato -> contato.getIdPessoa().equals(id))
@@ -60,11 +61,11 @@ public class ContatoService {
 
     // Uteis-----------------------------------------------------------------------
 
-    private Contato recuperarContatoPorIdContato(Integer id) throws RegraDeNegocioException {
+    private Contato recuperarContatoPorIdContato(Integer id) throws EntidadeNaoEncontradaException {
         return contatoRepository.list().stream()
                 .filter(contato -> contato.getIdContato().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new RegraDeNegocioException("Contato não encontrado"));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Contato não encontrado"));
     }
 
     private Contato retornarEntidade(ContatoCreateDTO dto) {
