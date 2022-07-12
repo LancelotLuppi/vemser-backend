@@ -10,7 +10,6 @@ import javax.validation.constraints.Size;
 @Data
 public class EnderecoCreateDTO {
 
-    private Integer idEndereco;
     private Integer idPessoa;
     @NotNull(message = "Insira um tipo para o endereco")
     private TipoEndereco tipo;
