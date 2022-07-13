@@ -42,7 +42,7 @@ public class ContatoController {
     }
 
     @GetMapping("/{idPessoa}")
-    public ResponseEntity<List<ContatoDTO>> listByPersonId(@PathVariable("idPessoa") Integer id) throws RegraDeNegocioException, EntidadeNaoEncontradaException {
+    public ResponseEntity<List<ContatoDTO>> listByPersonId(@PathVariable("idPessoa") Integer id) throws EntidadeNaoEncontradaException {
         return ResponseEntity.ok(contatoService.listByPersonId(id));
     }
 }
