@@ -2,6 +2,7 @@ package br.com.luppi.pessoaapi.service;
 
 import br.com.luppi.pessoaapi.entity.Endereco;
 import br.com.luppi.pessoaapi.entity.Pessoa;
+import br.com.luppi.pessoaapi.enums.TipoEmail;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,9 @@ public class EmailService {
 
     @Value("${spring.mail.username}")
     private String from;
+
+    //TODO filtrar envio de email por tipagem Enum
+    //private TipoEmail tipoEmail;
 
     private final JavaMailSender emailSender;
 
