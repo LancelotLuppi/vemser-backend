@@ -13,8 +13,6 @@ import java.time.LocalDate;
 @Data
 public class PessoaCreateDTO {
 
-    private Integer idPessoa;
-
     @Schema(description = "Nome da pessoa")
     @NotBlank
     private String nome;

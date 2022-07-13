@@ -11,12 +11,14 @@ import javax.validation.constraints.Size;
 @Data
 public class EnderecoCreateDTO {
 
+    @Schema(description = "Residente ou proprietário do local")
     private Integer idPessoa;
 
     @Schema(description = "Tipo do endereço")
     @NotNull(message = "Insira um tipo para o endereco")
     private TipoEndereco tipo;
 
+    @Schema(description = "Nome da rua/avenida")
     @Size(min=3, max=250)
     @NotBlank(message = "Informe um logradouro")
     private String logradouro;
@@ -24,7 +26,7 @@ public class EnderecoCreateDTO {
     @NotNull(message = "Informe um numero")
     private Integer numero;
 
-    @Schema(description = "CEP apenas números")
+    @Schema(description = "CEP apenas números", example = "87508-065 -> inválido | 23033180 -> válido")
     @Size(min=8, max=8)
     @NotBlank(message = "Informe um CEP valido")
     private String cep;
@@ -33,6 +35,7 @@ public class EnderecoCreateDTO {
     @NotBlank(message = "Informe uma cidade")
     private String cidade;
 
+    @Schema(description = "Permitido abreviação ou nome completo", example = "SP ou São Paulo")
     @NotBlank
     private String estado;
 
