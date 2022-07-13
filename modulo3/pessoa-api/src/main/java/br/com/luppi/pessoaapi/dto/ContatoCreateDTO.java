@@ -17,7 +17,7 @@ public class ContatoCreateDTO {
     private TipoContato tipoContato;
     @Size(min=3, max=13)
 
-    @Schema(description = "Permitido caracteres especiais: ( )")
+    @Schema(description = "Permitido caracteres especiais: (DDD) 00000-0000")
     @NotBlank(message = "Numero nao pode ser nulo ou em branco")
     private String telefone;
     @NotBlank(message = "Descricao nao pode ser nulo ou em branco")
