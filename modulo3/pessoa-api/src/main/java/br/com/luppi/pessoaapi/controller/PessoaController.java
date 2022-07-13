@@ -28,16 +28,6 @@ public class PessoaController {
     @Autowired
     private PropertiesReader propertiesReader;
 
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello World";
-    }
-
-    @GetMapping("/hello2")
-    public String hello2(){
-        return "Hello World 2!";
-    }
-
     @Operation(summary = "Adicionar pessoa", description = "Adiciona uma pessoa na aplicação")
         @ApiResponses(
                 value = {
@@ -99,15 +89,10 @@ public class PessoaController {
         pessoaService.delete(id);
     }
 
+    @Operation(summary = "Informar ambiente utilizado", description = "Informa qual ambiente você está no momento")
     @GetMapping("/ambiente")
     public String retornarPropertie() {
         return propertiesReader.getAmbiente();
     }
-
-    @GetMapping("/email")
-    public void enviarEmail() {
-        emailService.sendSimpleMessage();
-    }
-
 
 }

@@ -29,6 +29,7 @@ public class EnderecoController {
                 value = {
                         @ApiResponse(responseCode = "200", description = "Retorna o endereço criado"),
                         @ApiResponse(responseCode = "400", description = "Dados inválidos"),
+                        @ApiResponse(responseCode = "404", description = "{idPessoa} não encontrada"),
                         @ApiResponse(responseCode = "500", description = "Exception gerada")
                 }
         )
@@ -54,7 +55,7 @@ public class EnderecoController {
         @ApiResponses(
                 value = {
                         @ApiResponse(responseCode = "200", description = "Retorna o contato através do ID"),
-                        @ApiResponse(responseCode = "400", description = "{idEndereco} inválido"),
+                        @ApiResponse(responseCode = "404", description = "{idEndereco} não encontrado"),
                         @ApiResponse(responseCode = "500", description = "Exception gerada")
                 }
         )
@@ -67,7 +68,7 @@ public class EnderecoController {
         @ApiResponses(
                 value = {
                         @ApiResponse(responseCode = "200", description = "Retorna a lista de endereços por idPessoa"),
-                        @ApiResponse(responseCode = "400", description = "{idPessoa} inválido"),
+                        @ApiResponse(responseCode = "404", description = "{idPessoa} não encontrado"),
                         @ApiResponse(responseCode = "500", description = "Exception gerada")
                 }
         )
@@ -80,7 +81,8 @@ public class EnderecoController {
         @ApiResponses(
                 value = {
                         @ApiResponse(responseCode = "200", description = "Endereço atualizado com sucesso"),
-                        @ApiResponse(responseCode = "404", description = "{idEndereco} inválido"),
+                        @ApiResponse(responseCode = "400", description = "Dados inválidos"),
+                        @ApiResponse(responseCode = "404", description = "{idEndereco} não encontrado"),
                         @ApiResponse(responseCode = "500", description = "Exception gerada")
                 }
         )
@@ -94,7 +96,7 @@ public class EnderecoController {
         @ApiResponses(
                 value = {
                         @ApiResponse(responseCode = "200", description = "Endereço deletado com sucesso"),
-                        @ApiResponse(responseCode = "400", description = "{idEndereco} inválido"),
+                        @ApiResponse(responseCode = "404", description = "{idEndereco} não encontrado"),
                         @ApiResponse(responseCode = "500", description = "Exception gerada")
                 }
         )
