@@ -25,6 +25,8 @@ public class ContatoService {
     @Autowired
     private ObjectMapper objectMapper;
 
+    private static final String NOT_FOUND_MESSAGE = "{idContato} não encontrado";
+
 
     public ContatoDTO create(Integer id, ContatoCreateDTO contatoDto) throws RegraDeNegocioException, EntidadeNaoEncontradaException {
         pessoaService.verificarId(id);
@@ -68,7 +70,7 @@ public class ContatoService {
     private ContatoEntity returnById(Integer id) throws EntidadeNaoEncontradaException {
         return contatoRepository.findById(id).stream()
                 .findFirst()
-                .orElseThrow(() -> new EntidadeNaoEncontradaException("Contato não encontrado"));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(NOT_FOUND_MESSAGE));
     }
 
     private ContatoEntity retornarEntidade(ContatoCreateDTO dto) {

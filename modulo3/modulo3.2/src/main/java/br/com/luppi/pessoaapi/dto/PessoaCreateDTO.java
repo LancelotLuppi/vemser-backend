@@ -9,11 +9,11 @@ import java.time.LocalDate;
 @Data
 public class PessoaCreateDTO {
 
-    @Schema(description = "Nome da pessoa", example = "João Almeida")
+    @Schema(description = "Nome da pessoa", example = "Gabriel Luppi")
     @NotBlank
     private String nome;
 
-    @Schema(description = "AAAA-MM-DD, deve estar no passado", example = "2001-03-18")
+    @Schema(description = "AAAA-MM-DD, deve estar no passado", example = "2003-12-08")
     @Past
     @NotNull
     private LocalDate dataNascimento;
@@ -23,7 +23,7 @@ public class PessoaCreateDTO {
     @Size(max = 11)
     private String cpf;
 
-    @Schema(description = "seuEmail@dominio", example = "joao.almeida@dbccompany.com.br")
+    @Schema(description = "seuEmail@dominio", example = "gabriel.luppi@dbccompany.com.br")
     @Email
     @Size(max = 255)
     private String email;
