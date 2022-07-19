@@ -25,7 +25,7 @@ public interface EnderecoDocumentation {
                         @ApiResponse(responseCode = "500", description = "Exception gerada")
                 }
         )
-    ResponseEntity<EnderecoDTO> post(@Valid @RequestBody EnderecoCreateDTO endereco) throws RegraDeNegocioException, EntidadeNaoEncontradaException;
+    ResponseEntity<EnderecoDTO> post(@Valid @RequestBody EnderecoCreateDTO endereco) throws RegraDeNegocioException;
 
 
     @Operation(summary = "Listar endereços cadastrados")

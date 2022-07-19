@@ -33,7 +33,7 @@ public class EnderecoService {
     private final String NOT_FOUND_MESSAGE = "{idEndereco} nao encontrado";
 
 
-    public EnderecoDTO create(EnderecoCreateDTO enderecoCreateDTO) throws EntidadeNaoEncontradaException {
+    public EnderecoDTO create(EnderecoCreateDTO enderecoCreateDTO) {
 //        PessoaEntity pessoaEntity = pessoaService.returnPersonById(id);
 //        enderecoCreateDTO.setIdPessoa(id);
         EnderecoEntity enderecoEntity = returnEntity(enderecoCreateDTO);

@@ -27,7 +27,7 @@ public class EnderecoController implements EnderecoDocumentation {
 
 
     @PostMapping
-    public ResponseEntity<EnderecoDTO> post(@RequestBody @Valid EnderecoCreateDTO endereco) throws RegraDeNegocioException, EntidadeNaoEncontradaException {
+    public ResponseEntity<EnderecoDTO> post(@RequestBody @Valid EnderecoCreateDTO endereco) throws RegraDeNegocioException {
         return ResponseEntity.ok(enderecoService.create(endereco));
     }
 
