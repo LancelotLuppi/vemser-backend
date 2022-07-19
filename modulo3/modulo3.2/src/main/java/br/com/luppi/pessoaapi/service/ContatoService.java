@@ -28,7 +28,7 @@ public class ContatoService {
     private static final String NOT_FOUND_MESSAGE = "{idContato} não encontrado";
 
 
-    public ContatoDTO create(Integer id, ContatoCreateDTO contatoDto) throws RegraDeNegocioException, EntidadeNaoEncontradaException {
+    public ContatoDTO create(Integer id, ContatoCreateDTO contatoDto) throws EntidadeNaoEncontradaException {
         pessoaService.verificarId(id);
         contatoDto.setIdPessoa(id);
         ContatoEntity contato = retornarEntidade(contatoDto);
