@@ -1,19 +1,19 @@
 package br.com.luppi.pessoaapi.controller;
+
 import br.com.luppi.pessoaapi.config.PropertiesReader;
 import br.com.luppi.pessoaapi.documentation.PessoaDocumentation;
 import br.com.luppi.pessoaapi.dto.*;
 import br.com.luppi.pessoaapi.exception.EntidadeNaoEncontradaException;
 import br.com.luppi.pessoaapi.exception.RegraDeNegocioException;
 import br.com.luppi.pessoaapi.repository.PessoaRepository;
+import br.com.luppi.pessoaapi.service.EmailService;
 import br.com.luppi.pessoaapi.service.PessoaService;
-import ch.qos.logback.core.pattern.util.RegularEscapeUtil;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import br.com.luppi.pessoaapi.service.EmailService;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
