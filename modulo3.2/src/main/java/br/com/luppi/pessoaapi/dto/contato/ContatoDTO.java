@@ -1,5 +1,6 @@
-package br.com.luppi.pessoaapi.dto;
+package br.com.luppi.pessoaapi.dto.contato;
 
+import br.com.luppi.pessoaapi.dto.contato.ContatoCreateDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

@@ -1,16 +1,19 @@
 package br.com.luppi.pessoaapi.documentation;
 
-import br.com.luppi.pessoaapi.dto.PessoaCreateDTO;
-import br.com.luppi.pessoaapi.dto.PessoaDTO;
+import br.com.luppi.pessoaapi.dto.pessoa.*;
 import br.com.luppi.pessoaapi.exception.EntidadeNaoEncontradaException;
 import br.com.luppi.pessoaapi.exception.RegraDeNegocioException;
+import feign.Param;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PessoaDocumentation {
@@ -22,8 +25,17 @@ public interface PessoaDocumentation {
                         @ApiResponse(responseCode = "500", description = "Exception gerada")
                 }
         )
-    ResponseEntity<PessoaDTO> post(@Valid @RequestBody PessoaCreateDTO pessoa) throws RegraDeNegocioException;
+    ResponseEntity<PessoaDTO> post(@Valid @RequestBody PessoaCreateDTO pessoa);
 
+    @Operation(summary = "Atualizar pessoa", description = "Atualiza os dados cadastrados de uma pessoa")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Dados atualizados"),
+                    @ApiResponse(responseCode = "404", description = "{idPessoa} não existe"),
+                    @ApiResponse(responseCode = "500", description = "Exception gerada")
+            }
+    )
+    ResponseEntity<PessoaDTO> put(Integer id, @Valid @RequestBody PessoaCreateDTO pessoaAtualizada) throws EntidadeNaoEncontradaException;
 
     @Operation(summary = "Listar pessoas", description = "lista todas as pessoas cadastradas")
         @ApiResponses(
@@ -34,33 +46,79 @@ public interface PessoaDocumentation {
         )
     ResponseEntity<List<PessoaDTO>> get();
 
-
-//    @Operation(summary = "Buscar por nome", description = "lista as pessoas através do nome desejado")
-//        @ApiResponses(
-//                value = {
-//                        @ApiResponse(responseCode = "200", description = "Retorna as pessoas pelo nome"),
-//                        @ApiResponse(responseCode = "500", description = "Exception gerada")
-//                }
-//        )
-//    ResponseEntity<List<PessoaDTO>> getByName(String nome);
-
-
-    @Operation(summary = "Atualizar pessoa", description = "Atualiza os dados cadastrados de uma pessoa")
-        @ApiResponses(
-                value = {
-                        @ApiResponse(responseCode = "200", description = "Dados atualizados"),
-                        @ApiResponse(responseCode = "500", description = "Exception gerada")
-                }
-        )
-    ResponseEntity<PessoaDTO> put(Integer id, @Valid @RequestBody PessoaCreateDTO pessoaAtualizada) throws RegraDeNegocioException, EntidadeNaoEncontradaException;
-
-
     @Operation(summary = "Remover pessoa", description = "remove uma pessoa através do id")
         @ApiResponses(
                 value = {
                         @ApiResponse(responseCode = "200", description = "Cadastro removido"),
+                        @ApiResponse(responseCode = "404", description = "{idPessoa} não existe"),
                         @ApiResponse(responseCode = "500", description = "Exception gerada")
                 }
         )
-    void delete(Integer id) throws RegraDeNegocioException, EntidadeNaoEncontradaException;
+    void delete(Integer id) throws EntidadeNaoEncontradaException;
+
+    @Operation(summary = "Listar pessoas por nome", description = "Recebe um nome como parametro e retorna " +
+            "uma lista de pessoas com o nome informado. Retorna vazio caso não exista.")
+        @ApiResponses(
+                value = {
+                        @ApiResponse(responseCode = "200", description = "Lista pessoas"),
+                        @ApiResponse(responseCode = "500", description = "Server-side error")
+                }
+        )
+    ResponseEntity<List<PessoaDTO>>  getByNome(String nome);
+
+    @Operation(summary = "Retornar pessoa por cpf", description = "Recebe um cpf como parametro e retorna " +
+            "a pessoa que tenha o cpf informado. Retorna vazio caso não exista.")
+        @ApiResponses(
+                value = {
+                        @ApiResponse(responseCode = "200", description = "Retornar pessoa"),
+                        @ApiResponse(responseCode = "500", description = "Server-side error")
+                }
+        )
+    ResponseEntity<PessoaDTO> getByCpf(String cpf);
+
+    @Operation(summary = "Listar pessoas entre datas de nascimento", description = "Recebe duas datas como parâmetro (data inicial:{dtInicial}, data final:{dtFinal} " +
+            "e lista as pessoas que nasceram dentro do intervalo entre as datas. Retorna vazio caso não exista.")
+        @ApiResponses(
+                value = {
+                        @ApiResponse(responseCode = "200", description = "Listar pessoas"),
+                        @ApiResponse(responseCode = "500", description = "Server-side error")
+                }
+        )
+    ResponseEntity<List<PessoaDTO>> getBetweenDataNascimento(LocalDate dtInicial, LocalDate dtFinal);
+
+    @Operation(summary = "Listar pessoas com contatos", description = "Caso receba um {idPessoa} como parâmetro, será" +
+            "retornado a pessoa específica do ID informado juntamente de seus contatos. \n " +
+            "Caso não receba um parâmetro, será retornado a lista completa de pessoas com seus contatos.")
+        @ApiResponses(
+                value = {
+                        @ApiResponse(responseCode = "200", description = "Listar pessoas"),
+                        @ApiResponse(responseCode = "404", description = "{idPessoa} não existe"),
+                        @ApiResponse(responseCode = "500", description = "Server-side error")
+                }
+        )
+    ResponseEntity<List<PessoaComContatoDTO>>  getWithContato(Integer idPessoa) throws EntidadeNaoEncontradaException;
+
+    @Operation(summary = "Listar pessoas com enderecos", description = "Caso receba um {idPessoa} como parâmetro, será" +
+            "retornado a pessoa específica do ID informado juntamente de seus endereços. \n " +
+            "Caso não receba um parâmetro, será retornado a lista completa de pessoas com seus enderecos.")
+        @ApiResponses(
+                value = {
+                        @ApiResponse(responseCode = "200", description = "Listar pessoas"),
+                        @ApiResponse(responseCode = "404", description = "{idPessoa} não existe"),
+                        @ApiResponse(responseCode = "500", description = "Server-side error")
+                }
+        )
+    ResponseEntity<List<PessoaComEnderecoDTO>> getWithEndereco(Integer idPessoa) throws EntidadeNaoEncontradaException;
+
+    @Operation(summary = "Listar pessoas com enderecos", description = "Caso receba um {idPessoa} como parâmetro, será" +
+            "retornado a pessoa específica do ID informado juntamente de seus endereços. \n " +
+            "Caso não receba um parâmetro, será retornado a lista completa de pessoas com seus enderecos.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Listar pessoas"),
+                    @ApiResponse(responseCode = "404", description = "{idPessoa} não existe"),
+                    @ApiResponse(responseCode = "500", description = "Server-side error")
+            }
+    )
+    ResponseEntity<List<PessoaComPetDTO>> getWithPet(@RequestParam(value = "idPessoa", required = false) Integer idPessoa) throws EntidadeNaoEncontradaException;
 }

@@ -1,6 +1,9 @@
 package br.com.luppi.pessoaapi.service;
 
-import br.com.luppi.pessoaapi.dto.*;
+import br.com.luppi.pessoaapi.dto.contato.ContatoDTO;
+import br.com.luppi.pessoaapi.dto.endereco.EnderecoDTO;
+import br.com.luppi.pessoaapi.dto.pessoa.*;
+import br.com.luppi.pessoaapi.dto.pet.PetDTO;
 import br.com.luppi.pessoaapi.entity.PessoaEntity;
 import br.com.luppi.pessoaapi.exception.EntidadeNaoEncontradaException;
 import br.com.luppi.pessoaapi.repository.PessoaRepository;
@@ -134,6 +137,40 @@ public class PessoaService {
         }
     }
 
+    public List<PessoaCompletaDTO> completeList(Integer idPessoa) {
+        if (idPessoa == null) {
+            return pessoaRepository.findAll().stream()
+                    .map(pessoaEntity -> {
+                        PessoaCompletaDTO pessoasCompletas = objectMapper.convertValue(retornarDTO(pessoaEntity), PessoaCompletaDTO.class);
+                        pessoasCompletas.setPet(objectMapper.convertValue(pessoaEntity.getPet(), PetDTO.class));
+                        pessoasCompletas.setContatos(pessoaEntity.getContatos().stream()
+                                .map(contato -> objectMapper.convertValue(contato, ContatoDTO.class))
+                                .collect(Collectors.toList()));
+                        pessoasCompletas.setEnderecos(pessoaEntity.getEnderecos().stream()
+                                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                                .collect(Collectors.toList()));
+                        return pessoasCompletas;
+                    }).toList();
+        } else {
+            return pessoaRepository.findById(idPessoa).stream()
+                    .map(pessoaEntity -> {
+                        PessoaCompletaDTO pessoaCompleta = objectMapper.convertValue(retornarDTO(pessoaEntity), PessoaCompletaDTO.class);
+                        pessoaCompleta.setPet(objectMapper.convertValue(pessoaEntity.getPet(), PetDTO.class));
+                        pessoaCompleta.setContatos(pessoaEntity.getContatos().stream()
+                                .map(contato -> objectMapper.convertValue(contato, ContatoDTO.class))
+                                .collect(Collectors.toList()));
+                        pessoaCompleta.setEnderecos(pessoaEntity.getEnderecos().stream()
+                                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                                .collect(Collectors.toList()));
+                        return pessoaCompleta;
+                    }).toList();
+        }
+    }
+
+    public List<PessoaRelatorioDTO> gerarRelatorio(Integer id) {
+        return pessoaRepository.listRelatorioPessoa(id);
+    }
+
 
 
 
@@ -150,6 +187,10 @@ public class PessoaService {
         return pessoaRepository.findById(id).stream()
                 .findFirst()
                 .orElseThrow(() -> new EntidadeNaoEncontradaException(NOT_FOUND_MESSAGE));
+    }
+
+    public PessoaEntity saveEntity(PessoaEntity pessoa) {
+        return pessoaRepository.save(pessoa);
     }
 
     public PessoaEntity retornarEntity(PessoaCreateDTO dto) {

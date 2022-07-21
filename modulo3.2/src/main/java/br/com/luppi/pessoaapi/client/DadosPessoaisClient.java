@@ -1,6 +1,6 @@
 package br.com.luppi.pessoaapi.client;
 
-import br.com.luppi.pessoaapi.dto.DadosPessoaisDTO;
+import br.com.luppi.pessoaapi.dto.dados.DadosPessoaisDTO;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;

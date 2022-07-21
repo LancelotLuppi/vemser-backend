@@ -1,6 +1,6 @@
 package br.com.luppi.pessoaapi.documentation;
 
-import br.com.luppi.pessoaapi.dto.PessoaComDadosDTO;
+import br.com.luppi.pessoaapi.dto.pessoa.PessoaComDadosDTO;
 import br.com.luppi.pessoaapi.exception.EntidadeNaoEncontradaException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

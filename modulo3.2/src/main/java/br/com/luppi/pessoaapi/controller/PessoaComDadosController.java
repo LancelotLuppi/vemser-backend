@@ -1,7 +1,7 @@
 //package br.com.luppi.pessoaapi.controller;
 //
 //import br.com.luppi.pessoaapi.documentation.PessoaComDadosDocumentation;
-//import br.com.luppi.pessoaapi.dto.PessoaComDadosDTO;
+//import br.com.luppi.pessoaapi.dto.pessoa.PessoaComDadosDTO;
 //import br.com.luppi.pessoaapi.exception.EntidadeNaoEncontradaException;
 //import br.com.luppi.pessoaapi.service.PessoaComDadosService;
 //import org.springframework.beans.factory.annotation.Autowired;

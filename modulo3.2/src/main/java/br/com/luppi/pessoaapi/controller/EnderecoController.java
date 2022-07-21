@@ -1,10 +1,11 @@
 package br.com.luppi.pessoaapi.controller;
 
 import br.com.luppi.pessoaapi.documentation.EnderecoDocumentation;
-import br.com.luppi.pessoaapi.dto.EnderecoCreateDTO;
-import br.com.luppi.pessoaapi.dto.EnderecoDTO;
+import br.com.luppi.pessoaapi.dto.endereco.EnderecoCreateDTO;
+import br.com.luppi.pessoaapi.dto.endereco.EnderecoDTO;
+import br.com.luppi.pessoaapi.entity.EnderecoEntity;
 import br.com.luppi.pessoaapi.exception.EntidadeNaoEncontradaException;
-import br.com.luppi.pessoaapi.exception.RegraDeNegocioException;
+import br.com.luppi.pessoaapi.repository.EnderecoRepository;
 import br.com.luppi.pessoaapi.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +21,14 @@ import java.util.List;
 public class EnderecoController implements EnderecoDocumentation {
     @Autowired
     private EnderecoService enderecoService;
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
 
 
-    @PostMapping
-    public ResponseEntity<EnderecoDTO> post(@RequestBody @Valid EnderecoCreateDTO endereco) throws RegraDeNegocioException {
-        return ResponseEntity.ok(enderecoService.create(endereco));
+    @PostMapping("/{idPessoa}")
+    public ResponseEntity<EnderecoDTO> post(Integer idPessoa, @RequestBody @Valid EnderecoCreateDTO endereco) throws EntidadeNaoEncontradaException {
+        return ResponseEntity.ok(enderecoService.create(idPessoa , endereco));
     }
 
 
@@ -35,28 +38,31 @@ public class EnderecoController implements EnderecoDocumentation {
     }
 
 
+    @PutMapping("/{idEndereco}")
+    public ResponseEntity<EnderecoDTO> put(@PathVariable("idEndereco") Integer id,
+                                 @RequestBody @Valid EnderecoCreateDTO enderecoAtualizado) throws EntidadeNaoEncontradaException {
+        return ResponseEntity.ok(enderecoService.update(id, enderecoAtualizado));
+    }
+
     @GetMapping("/{idEndereco}")
     public ResponseEntity<EnderecoDTO> getByAddressId(@PathVariable("idEndereco") Integer id) throws EntidadeNaoEncontradaException {
         return ResponseEntity.ok(enderecoService.listByAddressId(id));
     }
 
 
-//    @GetMapping("/{idPessoa}/pessoa")
-//    public ResponseEntity<List<EnderecoDTO>>  getByPersonId(@PathVariable("idPessoa") Integer id) throws EntidadeNaoEncontradaException {
-//        return ResponseEntity.ok(enderecoService.listByPersonId(id));
-//    }
-
-
-    @PutMapping("/{idEndereco}")
-    public ResponseEntity<EnderecoDTO> put(@PathVariable("idEndereco") Integer id,
-                                 @RequestBody @Valid EnderecoCreateDTO enderecoAtualizado) throws RegraDeNegocioException, EntidadeNaoEncontradaException {
-        return ResponseEntity.ok(enderecoService.update(id, enderecoAtualizado));
+    @DeleteMapping("/{idEndereco}")
+    public void delete(@PathVariable("idEndereco") Integer id) throws EntidadeNaoEncontradaException {
+        enderecoService.delete(id);
     }
 
+    @GetMapping("/retorna-por-pais")
+    public ResponseEntity<List<EnderecoEntity>> getEnderecosByPais(@RequestParam("País") String pais) {
+        return ResponseEntity.ok(enderecoRepository.listEnderecoByPais(pais));
+    }
 
-    @DeleteMapping("/{idEndereco}")
-    public void delete(@PathVariable("idEndereco") Integer id) throws RegraDeNegocioException, EntidadeNaoEncontradaException {
-        enderecoService.delete(id);
+    @GetMapping("/retorna-por-id-pessoa")
+    public ResponseEntity<List<EnderecoEntity>> getEnderecoByIdPessoa(@RequestParam("idPessoa") Integer id) {
+        return ResponseEntity.ok(enderecoRepository.listEnderecoByIdPessoa(id));
     }
 
 }

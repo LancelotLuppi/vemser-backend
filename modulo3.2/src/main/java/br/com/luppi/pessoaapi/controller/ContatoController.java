@@ -1,8 +1,8 @@
 package br.com.luppi.pessoaapi.controller;
 
 import br.com.luppi.pessoaapi.documentation.ContatoDocumentation;
-import br.com.luppi.pessoaapi.dto.ContatoCreateDTO;
-import br.com.luppi.pessoaapi.dto.ContatoDTO;
+import br.com.luppi.pessoaapi.dto.contato.ContatoCreateDTO;
+import br.com.luppi.pessoaapi.dto.contato.ContatoDTO;
 import br.com.luppi.pessoaapi.exception.EntidadeNaoEncontradaException;
 import br.com.luppi.pessoaapi.exception.RegraDeNegocioException;
 import br.com.luppi.pessoaapi.service.ContatoService;

@@ -1,4 +1,4 @@
-package br.com.luppi.pessoaapi.dto;
+package br.com.luppi.pessoaapi.dto.endereco;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

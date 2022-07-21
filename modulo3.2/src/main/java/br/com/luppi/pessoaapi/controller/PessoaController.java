@@ -2,7 +2,7 @@ package br.com.luppi.pessoaapi.controller;
 
 import br.com.luppi.pessoaapi.config.PropertiesReader;
 import br.com.luppi.pessoaapi.documentation.PessoaDocumentation;
-import br.com.luppi.pessoaapi.dto.*;
+import br.com.luppi.pessoaapi.dto.pessoa.*;
 import br.com.luppi.pessoaapi.exception.EntidadeNaoEncontradaException;
 import br.com.luppi.pessoaapi.exception.RegraDeNegocioException;
 import br.com.luppi.pessoaapi.repository.PessoaRepository;
@@ -31,12 +31,9 @@ public class PessoaController implements PessoaDocumentation {
     @Autowired
     private PropertiesReader propertiesReader;
 
-    @Autowired
-    private PessoaRepository pessoaRepository;
-
 
     @PostMapping
-    public ResponseEntity<PessoaDTO> post(@Valid @RequestBody PessoaCreateDTO pessoa) throws RegraDeNegocioException {
+    public ResponseEntity<PessoaDTO> post(@Valid @RequestBody PessoaCreateDTO pessoa) {
         return ResponseEntity.ok(pessoaService.create(pessoa));
     }
 
@@ -49,13 +46,13 @@ public class PessoaController implements PessoaDocumentation {
 
     @PutMapping("/{idPessoa}") // localhost:8080/pessoa/1000
     public ResponseEntity<PessoaDTO> put(@PathVariable("idPessoa") Integer id,
-                         @RequestBody @Valid PessoaCreateDTO pessoaAtualizada) throws RegraDeNegocioException, EntidadeNaoEncontradaException {
+                         @RequestBody @Valid PessoaCreateDTO pessoaAtualizada) throws EntidadeNaoEncontradaException {
         return ResponseEntity.ok(pessoaService.update(id, pessoaAtualizada));
     }
 
 
     @DeleteMapping("/{idPessoa}")
-    public void delete(@PathVariable("idPessoa") Integer id) throws RegraDeNegocioException, EntidadeNaoEncontradaException {
+    public void delete(@PathVariable("idPessoa") Integer id) throws EntidadeNaoEncontradaException {
         pessoaService.delete(id);
     }
 
@@ -74,19 +71,29 @@ public class PessoaController implements PessoaDocumentation {
         return ResponseEntity.ok(pessoaService.listByDataNascimento(dtInicial, dtFinal));
     }
 
-    @GetMapping("/pessoa-com-contatos")
+    @GetMapping("/lista-com-contatos")
     public ResponseEntity<List<PessoaComContatoDTO>>  getWithContato(@RequestParam(value = "idPessoa", required = false) Integer idPessoa) throws EntidadeNaoEncontradaException {
         return ResponseEntity.ok(pessoaService.listWithContato(idPessoa));
     }
 
-    @GetMapping("/pessoa-com-enderecos")
+    @GetMapping("/lista-com-enderecos")
     public ResponseEntity<List<PessoaComEnderecoDTO>> getWithEndereco(@RequestParam(value = "idPessoa", required = false) Integer idPessoa) throws EntidadeNaoEncontradaException {
         return ResponseEntity.ok(pessoaService.listWithEndereco(idPessoa));
     }
 
-    @GetMapping("/pessoa-com-pet")
+    @GetMapping("/lista-com-pet")
     public ResponseEntity<List<PessoaComPetDTO>> getWithPet(@RequestParam(value = "idPessoa", required = false) Integer idPessoa) throws EntidadeNaoEncontradaException {
         return ResponseEntity.ok(pessoaService.listWithPet(idPessoa));
+    }
+
+    @GetMapping("/lista-completa")
+    public ResponseEntity<List<PessoaCompletaDTO>> getComplete(@RequestParam(value = "idPessoa", required = false) Integer idPessoa) {
+        return ResponseEntity.ok(pessoaService.completeList(idPessoa));
+    }
+
+    @GetMapping("/relatorio")
+    public ResponseEntity<List<PessoaRelatorioDTO>> getRelatorio(@RequestParam(value = "idPessoa", required = false) Integer idPessoa) {
+        return ResponseEntity.ok(pessoaService.gerarRelatorio(idPessoa));
     }
 
 

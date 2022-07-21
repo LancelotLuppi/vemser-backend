@@ -1,39 +1,63 @@
 package br.com.luppi.pessoaapi.service;
 
-import br.com.luppi.pessoaapi.dto.PetCreateDTO;
-import br.com.luppi.pessoaapi.dto.PetDTO;
+import br.com.luppi.pessoaapi.dto.pet.PetCreateDTO;
+import br.com.luppi.pessoaapi.dto.pet.PetDTO;
+import br.com.luppi.pessoaapi.entity.PessoaEntity;
 import br.com.luppi.pessoaapi.entity.PetEntity;
 import br.com.luppi.pessoaapi.exception.EntidadeNaoEncontradaException;
+import br.com.luppi.pessoaapi.exception.RegraDeNegocioException;
 import br.com.luppi.pessoaapi.repository.PetRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PetService {
     @Autowired
     private PetRepository petRepository;
+
     @Autowired
     private PessoaService pessoaService;
     @Autowired
     private ObjectMapper objectMapper;
 
-    public PetDTO create(Integer idPessoa , PetCreateDTO petDto) throws EntidadeNaoEncontradaException {
+    public PetDTO create(Integer idPessoa , PetCreateDTO petDto) throws EntidadeNaoEncontradaException, RegraDeNegocioException {
+        PessoaEntity pessoaRecuperada = pessoaService.returnPersonById(idPessoa);
+        verificarSeTemPet(pessoaRecuperada);
+
         PetEntity petEntity =  retornarEntity(petDto);
-        petEntity.setPessoa(pessoaService.returnPersonById(idPessoa));
+        petEntity.setPessoa(pessoaRecuperada);
+
         PetDTO petCriado = retornarDTO(petRepository.save(petEntity));
-        petCriado.setIdPessoa(idPessoa);
+        pessoaRecuperada.setPet(petEntity);
+        pessoaService.saveEntity(pessoaRecuperada);
+
+        petCriado.setIdPessoa(pessoaRecuperada.getIdPessoa());
         return petCriado;
     }
 
-    public PetDTO update(Integer id, PetCreateDTO petAtualizado) throws EntidadeNaoEncontradaException {
+    public PetDTO update(Integer id, PetCreateDTO petAtualizado) throws EntidadeNaoEncontradaException, RegraDeNegocioException {
         PetEntity petRecuperado = retornarPorId(id);
+        PessoaEntity antigoDono = pessoaService.returnPersonById(petRecuperado.getPessoa().getIdPessoa());
+        PessoaEntity pessoaAtualizada = pessoaService.returnPersonById(petAtualizado.getIdPessoa());
+
+        if(verificarSeTemPet(pessoaAtualizada) && !Objects.equals(pessoaAtualizada.getIdPessoa(), antigoDono.getIdPessoa())) {
+            throw new RegraDeNegocioException("Essa pessoa já tem um pet cadastrado!");
+        }
+
+        antigoDono.setPet(null);
+        petRecuperado.setPessoa(pessoaAtualizada);
         petRecuperado.setNome(petAtualizado.getNome());
         petRecuperado.setTipo(petAtualizado.getTipo());
+
         PetDTO retornoPet = retornarDTO(petRepository.save(petRecuperado));
-        retornoPet.setIdPessoa(petRecuperado.getPessoa().getIdPessoa());
+        pessoaAtualizada.setPet(petRecuperado);
+        pessoaService.saveEntity(pessoaAtualizada);
+
+        retornoPet.setIdPessoa(pessoaAtualizada.getIdPessoa());
         return retornoPet;
     }
 
@@ -55,9 +79,11 @@ public class PetService {
 
     public void delete(Integer idPet) throws EntidadeNaoEncontradaException {
         PetEntity petRecuperado = retornarPorId(idPet);
+       PessoaEntity pessoaAtualizada = pessoaService.returnPersonById(petRecuperado.getPessoa().getIdPessoa());
+        pessoaAtualizada.setPet(null);
+        pessoaService.saveEntity(pessoaAtualizada);
         petRepository.delete(petRecuperado);
     }
-
 
     //------------------------------------Auxiliares-------------------------------------
     public PetEntity retornarEntity(PetCreateDTO dto) {
@@ -71,5 +97,12 @@ public class PetService {
         return petRepository.findById(id).stream()
                 .findFirst()
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("{idPet} não encontrado"));
+    }
+
+    public boolean verificarSeTemPet(PessoaEntity pessoa) {
+        if(pessoa.getPet() != null) {
+            return true;
+        }
+        return false;
     }
 }

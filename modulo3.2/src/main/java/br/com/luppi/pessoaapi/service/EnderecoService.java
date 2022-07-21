@@ -1,19 +1,19 @@
 package br.com.luppi.pessoaapi.service;
 
 
-import br.com.luppi.pessoaapi.dto.EnderecoCreateDTO;
-import br.com.luppi.pessoaapi.dto.EnderecoDTO;
+import br.com.luppi.pessoaapi.dto.endereco.EnderecoCreateDTO;
+import br.com.luppi.pessoaapi.dto.endereco.EnderecoDTO;
 import br.com.luppi.pessoaapi.entity.EnderecoEntity;
 import br.com.luppi.pessoaapi.entity.PessoaEntity;
 import br.com.luppi.pessoaapi.exception.EntidadeNaoEncontradaException;
 import br.com.luppi.pessoaapi.exception.RegraDeNegocioException;
 import br.com.luppi.pessoaapi.repository.EnderecoRepository;
-import br.com.luppi.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,8 +24,6 @@ public class EnderecoService {
     @Autowired
     private PessoaService pessoaService;
     @Autowired
-    private PessoaRepository pessoaRepository;
-    @Autowired
     private ObjectMapper objectMapper;
     @Autowired
     private EmailService emailService;
@@ -33,13 +31,11 @@ public class EnderecoService {
     private final String NOT_FOUND_MESSAGE = "{idEndereco} nao encontrado";
 
 
-    public EnderecoDTO create(EnderecoCreateDTO enderecoCreateDTO) {
-//        PessoaEntity pessoaEntity = pessoaService.returnPersonById(id);
-//        enderecoCreateDTO.setIdPessoa(id);
+    public EnderecoDTO create(Integer idPessoa, EnderecoCreateDTO enderecoCreateDTO) throws EntidadeNaoEncontradaException {
+        PessoaEntity pessoaEntity = pessoaService.returnPersonById(idPessoa);
         EnderecoEntity enderecoEntity = returnEntity(enderecoCreateDTO);
-        EnderecoDTO enderecoDto = retornarDTO(enderecoRepository.save(enderecoEntity));
-//        emailService.sendCreateEnderecoEmail(pessoaEntity, enderecoEntity);
-        return enderecoDto;
+        enderecoEntity.setPessoas(Set.of(pessoaEntity));
+        return retornarDTO(enderecoRepository.save(enderecoEntity));
     }
 
     public List<EnderecoDTO> list() {
@@ -48,38 +44,24 @@ public class EnderecoService {
                 .collect(Collectors.toList());
     }
 
-    public EnderecoDTO update(Integer id, EnderecoCreateDTO enderecoCreateDTO) throws EntidadeNaoEncontradaException {
-        EnderecoEntity enderecoRecuperado = recuperarEnderecoPorIdEndereco(id);
-//        enderecoRecuperado.setIdPessoa(enderecoCreateDTO.getIdPessoa());
-        enderecoRecuperado.setTipo(enderecoCreateDTO.getTipo());
-        enderecoRecuperado.setLogradouro(enderecoCreateDTO.getLogradouro());
-        enderecoRecuperado.setNumero(enderecoCreateDTO.getNumero());
-        enderecoRecuperado.setComplemento(enderecoCreateDTO.getComplemento());
-        enderecoRecuperado.setCep(enderecoCreateDTO.getCep());
-        enderecoRecuperado.setCidade(enderecoCreateDTO.getCidade());
-        enderecoRecuperado.setEstado(enderecoCreateDTO.getEstado());
-        enderecoRecuperado.setPais(enderecoCreateDTO.getPais());
-        EnderecoDTO dto = retornarDTO(enderecoRepository.save(enderecoRecuperado));
+    public EnderecoDTO update(Integer idEndereco, EnderecoCreateDTO enderecoAtualizadoDto) throws EntidadeNaoEncontradaException {
+        verificarId(idEndereco);
 
-//        PessoaEntity pessoa = pessoaService.returnPersonById(enderecoRecuperado.getIdPessoa());
-//        emailService.sendUpdateEnderecoEmail(pessoa, enderecoRecuperado);
-        return dto;
+        PessoaEntity pessoaAtualizada = pessoaService.returnPersonById(enderecoAtualizadoDto.getIdPessoa());
+        EnderecoEntity enderecoAtualizado = returnEntity(enderecoAtualizadoDto);
+
+        enderecoAtualizado.setIdEndereco(idEndereco);
+        enderecoAtualizado.setPessoas(Set.of(pessoaAtualizada));
+
+        EnderecoDTO retornoEndereco = retornarDTO(enderecoRepository.save(enderecoAtualizado));
+        retornoEndereco.setIdPessoa(enderecoAtualizadoDto.getIdPessoa());
+        return retornoEndereco;
     }
 
-    public void delete(Integer id) throws EntidadeNaoEncontradaException, RegraDeNegocioException {
+    public void delete(Integer id) throws EntidadeNaoEncontradaException {
         EnderecoEntity enderecoEntityRecuperado = recuperarEnderecoPorIdEndereco(id);
-//        PessoaEntity pessoaEntity = pessoaService.returnPersonById(enderecoEntityRecuperado.getIdPessoa());
         enderecoRepository.delete(enderecoEntityRecuperado);
-//        emailService.sendDeleteEnderecoEmail(pessoaEntity, enderecoEntityRecuperado);
     }
-
-//    public List<EnderecoDTO> listByPersonId(Integer id) throws EntidadeNaoEncontradaException {
-//        pessoaService.verificarId(id);
-//        return enderecoRepository.findAll().stream()
-//                .filter(enderecoEntity -> enderecoEntity.getIdPessoa().equals(id))
-//                .map(this::retornarDTO)
-//                .collect(Collectors.toList());
-//    }
 
     public EnderecoDTO listByAddressId(Integer id) throws EntidadeNaoEncontradaException {
         verificarId(id);

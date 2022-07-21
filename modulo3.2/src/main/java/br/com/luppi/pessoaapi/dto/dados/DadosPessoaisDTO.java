@@ -1,4 +1,4 @@
-package br.com.luppi.pessoaapi.dto;
+package br.com.luppi.pessoaapi.dto.dados;
 
 import br.com.luppi.pessoaapi.enums.TipoSexo;
 import lombok.Data;

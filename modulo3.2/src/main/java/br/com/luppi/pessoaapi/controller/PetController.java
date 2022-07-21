@@ -1,8 +1,9 @@
 package br.com.luppi.pessoaapi.controller;
 
-import br.com.luppi.pessoaapi.dto.PetCreateDTO;
-import br.com.luppi.pessoaapi.dto.PetDTO;
+import br.com.luppi.pessoaapi.dto.pet.PetCreateDTO;
+import br.com.luppi.pessoaapi.dto.pet.PetDTO;
 import br.com.luppi.pessoaapi.exception.EntidadeNaoEncontradaException;
+import br.com.luppi.pessoaapi.exception.RegraDeNegocioException;
 import br.com.luppi.pessoaapi.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class PetController {
     private PetService petService;
 
     @PostMapping("/{idPessoa}")
-    public ResponseEntity<PetDTO> post(@PathVariable("idPessoa") Integer idPessoa , @RequestBody @Valid PetCreateDTO pet) throws EntidadeNaoEncontradaException {
+    public ResponseEntity<PetDTO> post(@PathVariable("idPessoa") Integer idPessoa , @RequestBody @Valid PetCreateDTO pet) throws EntidadeNaoEncontradaException, RegraDeNegocioException {
         return ResponseEntity.ok(petService.create(idPessoa ,pet));
     }
 
@@ -34,7 +35,7 @@ public class PetController {
     }
 
     @PutMapping("/{idPet}")
-    public ResponseEntity<PetDTO> put(@PathVariable("idPet") Integer idPet, @Valid @RequestBody PetCreateDTO petDto) throws EntidadeNaoEncontradaException {
+    public ResponseEntity<PetDTO> put(@PathVariable("idPet") Integer idPet, @Valid @RequestBody PetCreateDTO petDto) throws EntidadeNaoEncontradaException, RegraDeNegocioException {
         return ResponseEntity.ok(petService.update(idPet, petDto));
     }
 

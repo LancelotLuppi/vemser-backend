@@ -1,14 +1,15 @@
 package br.com.luppi.pessoaapi.documentation;
 
-import br.com.luppi.pessoaapi.dto.EnderecoCreateDTO;
-import br.com.luppi.pessoaapi.dto.EnderecoDTO;
+import br.com.luppi.pessoaapi.dto.endereco.EnderecoCreateDTO;
+import br.com.luppi.pessoaapi.dto.endereco.EnderecoDTO;
+import br.com.luppi.pessoaapi.entity.EnderecoEntity;
 import br.com.luppi.pessoaapi.exception.EntidadeNaoEncontradaException;
-import br.com.luppi.pessoaapi.exception.RegraDeNegocioException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -25,8 +26,7 @@ public interface EnderecoDocumentation {
                         @ApiResponse(responseCode = "500", description = "Exception gerada")
                 }
         )
-    ResponseEntity<EnderecoDTO> post(@Valid @RequestBody EnderecoCreateDTO endereco) throws RegraDeNegocioException;
-
+    ResponseEntity<EnderecoDTO> post(Integer idPessoa, @Valid @RequestBody EnderecoCreateDTO endereco) throws EntidadeNaoEncontradaException;
 
     @Operation(summary = "Listar endereços cadastrados")
         @ApiResponses(
@@ -37,6 +37,26 @@ public interface EnderecoDocumentation {
         )
     ResponseEntity<List<EnderecoDTO>> get();
 
+    @Operation(summary = "Atualizar endereço através do {idEndereco}")
+        @ApiResponses(
+                value = {
+                        @ApiResponse(responseCode = "200", description = "Endereço atualizado com sucesso"),
+                        @ApiResponse(responseCode = "400", description = "Dados inválidos"),
+                        @ApiResponse(responseCode = "404", description = "{idEndereco} não encontrado"),
+                        @ApiResponse(responseCode = "500", description = "Exception gerada")
+                }
+        )
+    ResponseEntity<EnderecoDTO> put(Integer id, @Valid @RequestBody EnderecoCreateDTO enderecoAtualizado) throws EntidadeNaoEncontradaException;
+
+    @Operation(summary = "Deletar endereço através do {idEndereco}")
+        @ApiResponses(
+                value = {
+                        @ApiResponse(responseCode = "200", description = "Endereço deletado com sucesso"),
+                        @ApiResponse(responseCode = "404", description = "{idEndereco} não encontrado"),
+                        @ApiResponse(responseCode = "500", description = "Exception gerada")
+                }
+        )
+    void delete(Integer id) throws EntidadeNaoEncontradaException;
 
     @Operation(summary = "Listar endereço por ID do endereço")
         @ApiResponses(
@@ -48,38 +68,25 @@ public interface EnderecoDocumentation {
         )
     ResponseEntity<EnderecoDTO> getByAddressId(Integer id) throws EntidadeNaoEncontradaException;
 
-
-
-//    @Operation(summary = "Listar endereços por ID da pessoa")
-//        @ApiResponses(
-//                value = {
-//                        @ApiResponse(responseCode = "200", description = "Retorna a lista de endereços por idPessoa"),
-//                        @ApiResponse(responseCode = "404", description = "{idPessoa} não encontrado"),
-//                        @ApiResponse(responseCode = "500", description = "Exception gerada")
-//                }
-//        )
-//    ResponseEntity<List<EnderecoDTO>>  getByPersonId(Integer id) throws EntidadeNaoEncontradaException;
-
-
-    @Operation(summary = "Atualizar endereço através do {idEndereco}")
+    @Operation(summary = "Listar endereços pelo País", description = "Lista os endereços que tenham o País com o mesmo " +
+            "nome informado, caso não exista, será retornado um objeto vazio.")
         @ApiResponses(
                 value = {
-                        @ApiResponse(responseCode = "200", description = "Endereço atualizado com sucesso"),
-                        @ApiResponse(responseCode = "400", description = "Dados inválidos"),
-                        @ApiResponse(responseCode = "404", description = "{idEndereco} não encontrado"),
-                        @ApiResponse(responseCode = "500", description = "Exception gerada")
+                        @ApiResponse(responseCode = "200", description = "Executa a busca"),
+                        @ApiResponse(responseCode = "400", description = "Client-side error, verifique se o corpo da requisição está correto"),
+                        @ApiResponse(responseCode = "500", description = "Server-side error")
                 }
         )
-    ResponseEntity<EnderecoDTO> put(Integer id, @Valid @RequestBody EnderecoCreateDTO enderecoAtualizado) throws RegraDeNegocioException, EntidadeNaoEncontradaException;
+    ResponseEntity<List<EnderecoEntity>> getEnderecosByPais(String pais);
 
-
-    @Operation(summary = "Deletar endereço através do {idEndereco}")
+    @Operation(summary = "Listar endereços pelo {idPessoa}", description = "Lista os endereços que tenham o {idPessoa} como " +
+            "residente ou proprietário. Caso a pessoa não tenha cadastro de endereço ou o ID não exista no banco de dados, será retornado um objeto vazio")
         @ApiResponses(
                 value = {
-                        @ApiResponse(responseCode = "200", description = "Endereço deletado com sucesso"),
-                        @ApiResponse(responseCode = "404", description = "{idEndereco} não encontrado"),
-                        @ApiResponse(responseCode = "500", description = "Exception gerada")
+                        @ApiResponse(responseCode = "200", description = "Executa a busca"),
+                        @ApiResponse(responseCode = "400", description = "Client-side error, verifique se o corpo da requisição está correto"),
+                        @ApiResponse(responseCode = "500", description = "Server-side error")
                 }
         )
-    void delete(Integer id) throws RegraDeNegocioException, EntidadeNaoEncontradaException;
+    ResponseEntity<List<EnderecoEntity>> getEnderecoByIdPessoa(@RequestParam("idPessoa") Integer id);
 }

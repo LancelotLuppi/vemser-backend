@@ -1,4 +1,4 @@
-package br.com.luppi.pessoaapi.dto;
+package br.com.luppi.pessoaapi.dto.endereco;
 
 import br.com.luppi.pessoaapi.enums.TipoEndereco;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -10,6 +10,9 @@ import javax.validation.constraints.Size;
 
 @Data
 public class EnderecoCreateDTO {
+
+    @Schema(description = "ID do residente")
+    private Integer idPessoa;
 
     @Schema(description = "Tipo do endereço", example = "COMERCIAL")
     @NotNull(message = "Insira um tipo para o endereco")
