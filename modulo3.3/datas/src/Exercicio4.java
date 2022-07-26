@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 public class Exercicio4 {
     public static void main(String[] args) {
         LocalDateTime dataAtual = LocalDateTime.now().atZone(ZoneId.of("America/Sao_Paulo")).toLocalDateTime();
+
         LocalDateTime dataShow = LocalDateTime.of(2024, 9, 14, 18, 30, 0)
                 .atZone(ZoneId.of("Europe/London")).toLocalDateTime();
 
