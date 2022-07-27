@@ -22,7 +22,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private final static String BEARER = "Bearer ";
 
 
-    // TODO Realiza a filtragem da requisição
+    // Realiza a filtragem da requisição
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -35,7 +35,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     }
 
 
-    // TODO Autentica o usuário recuperado através do token
+    // Autentica o usuário recuperado através do token
     public void autenticar(Optional<UsuarioEntity> optional) {
         boolean usuarioEhValido = optional.isPresent();
         if(usuarioEhValido) {
@@ -50,7 +50,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
 
 
-    // TODO Recupera o token do Header da requisição
+    // Recupera o token do Header da requisição
     private String getTokenFromHeader(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         if(token == null) {

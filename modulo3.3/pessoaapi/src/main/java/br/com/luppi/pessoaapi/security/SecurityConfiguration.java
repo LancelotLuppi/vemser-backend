@@ -20,8 +20,8 @@ public class SecurityConfiguration {
 
     private final TokenService tokenService;
 
-    // TODO Filtro do security, autorizamos o acesso a nossa API, e a utilizar o /auth
-    // TODO além de desabilitarmos o CSRF, frameOptions e habilitrmos o CORS
+    // Filtro do security, autorizamos o acesso a nossa API, e a utilizar o /auth
+    // além de desabilitarmos o CSRF, frameOptions e habilitrmos o CORS
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.headers().frameOptions().disable().and()
@@ -36,7 +36,7 @@ public class SecurityConfiguration {
     }
 
 
-    // TODO Ignoramos os padrões de segurança para os caminhos informados abaixo
+    // Ignoramos os padrões de segurança para os caminhos informados abaixo
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().antMatchers("/v3/api-docs/**",
@@ -46,7 +46,7 @@ public class SecurityConfiguration {
     }
 
 
-    // TODO Permitimos consumirem nossa API de forma externa
+    // Permitimos consumirem nossa API de forma externa
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {

@@ -15,7 +15,7 @@ public class TokenService {
     private final UsuarioService usuarioService;
 
 
-    // TODO Gera o token do usuário codificando seu user/senha
+    // Gera o token do usuário codificando seu user/senha
     public String generateToken(UsuarioEntity usuarioEntity) {
         String textoParaConverter = usuarioEntity.getLogin() + ";" + usuarioEntity.getSenha();
         return Base64.getEncoder().encodeToString(textoParaConverter.getBytes());
@@ -23,7 +23,7 @@ public class TokenService {
 
 
 
-    // TODO Realiza a decodificação do token recebido e retorna um usuário através do user/senha
+    // Realiza a decodificação do token recebido e retorna um usuário através do user/senha
     public Optional<UsuarioEntity> isValid(String token) {
         if(token == null) {
             return Optional.empty();
