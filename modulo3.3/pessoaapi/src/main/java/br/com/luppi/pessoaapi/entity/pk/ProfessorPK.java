@@ -5,11 +5,12 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Embeddable
-public class ProfessorPK {
+public class ProfessorPK implements Serializable {
 
     @Column(name = "id_professor")
     private Integer idProfessor;
