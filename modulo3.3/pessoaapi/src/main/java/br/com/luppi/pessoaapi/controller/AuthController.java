@@ -44,7 +44,7 @@ public class AuthController {
         return tokenService.generateToken(usuarioEntity);
     }
 
-    @PostMapping("create-user")
+    @PostMapping("/create-user")
     public LoginDTO createUser(@RequestBody @Valid LoginDTO login) throws RegraDeNegocioException {
         return usuarioService.saveUser(login);
     }
