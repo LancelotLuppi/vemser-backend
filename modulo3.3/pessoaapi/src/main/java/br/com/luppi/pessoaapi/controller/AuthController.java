@@ -1,7 +1,10 @@
 package br.com.luppi.pessoaapi.controller;
 
-import br.com.luppi.pessoaapi.dto.LoginDTO;
+import br.com.luppi.pessoaapi.dto.UsuarioDTO;
+import br.com.luppi.pessoaapi.dto.login.LoginDTO;
+import br.com.luppi.pessoaapi.dto.login.LoginReturnDTO;
 import br.com.luppi.pessoaapi.entity.UsuarioEntity;
+import br.com.luppi.pessoaapi.exception.EntidadeNaoEncontradaException;
 import br.com.luppi.pessoaapi.exception.RegraDeNegocioException;
 import br.com.luppi.pessoaapi.security.TokenService;
 import br.com.luppi.pessoaapi.service.UsuarioService;
@@ -10,10 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -45,7 +45,12 @@ public class AuthController {
     }
 
     @PostMapping("/create-user")
-    public LoginDTO createUser(@RequestBody @Valid LoginDTO login) throws RegraDeNegocioException {
+    public LoginReturnDTO createUser(@RequestBody @Valid LoginDTO login) throws RegraDeNegocioException {
         return usuarioService.saveUser(login);
+    }
+
+    @GetMapping("/getLoggedUser")
+    public UsuarioDTO getLoggedUser() throws EntidadeNaoEncontradaException {
+        return usuarioService.getLoggedUser();
     }
 }

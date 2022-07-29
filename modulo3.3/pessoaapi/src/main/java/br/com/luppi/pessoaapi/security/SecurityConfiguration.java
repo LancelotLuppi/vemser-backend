@@ -31,8 +31,7 @@ public class SecurityConfiguration {
                 .cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests((authze) ->
-                        authze.antMatchers("/", "/auth").permitAll()
-                                .anyRequest().authenticated()
+                        authze.anyRequest().authenticated()
                 );
         http.addFilterBefore(new TokenAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
         return http.build();
@@ -45,7 +44,9 @@ public class SecurityConfiguration {
         return (web) -> web.ignoring().antMatchers("/v3/api-docs/**",
                 "/swagger-resources/**",
                 "/swagger-ui/**",
-                "/auth/**"
+                "/auth",
+                "/auth/create-user",
+                "/"
         );
     }
 

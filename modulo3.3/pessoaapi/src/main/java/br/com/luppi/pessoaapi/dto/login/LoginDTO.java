@@ -1,4 +1,4 @@
-package br.com.luppi.pessoaapi.dto;
+package br.com.luppi.pessoaapi.dto.login;
 
 import lombok.Data;
 
