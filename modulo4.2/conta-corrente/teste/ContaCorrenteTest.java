@@ -8,12 +8,12 @@ import org.junit.jupiter.api.Test;
 
 public class ContaCorrenteTest {
 
-    Integer saque;
-    Boolean saqueEfetuado;
-    Integer transferencia;
-    Boolean transferenciaEfetuada;
-    Integer deposito;
-    Boolean depositoEfetuado;
+    private Integer saque;
+    private Boolean saqueEfetuado;
+    private Integer transferencia;
+    private Boolean transferenciaEfetuada;
+    private Integer deposito;
+    private Boolean depositoEfetuado;
 
     @Test
     public void testarSaqueContaCorrenteEVerificarSaldoComSucesso() {
@@ -135,7 +135,7 @@ public class ContaCorrenteTest {
         Assertions.assertEquals(200, contaCorrente.getSaldo());
     }
 
-    
+
 
     private ContaCorrente gerarContaCorrente(int saldo, int valorChequeEspecial) {
         ContaCorrente contaCorrente = new ContaCorrente();
