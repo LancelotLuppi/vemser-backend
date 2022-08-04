@@ -92,8 +92,8 @@ public class PessoaController implements PessoaDocumentation {
     }
 
     @GetMapping("/relatorio")
-    public ResponseEntity<List<PessoaRelatorioDTO>> getRelatorio(@RequestParam(value = "idPessoa", required = false) Integer idPessoa) {
-        return ResponseEntity.ok(pessoaService.gerarRelatorio(idPessoa));
+    public ResponseEntity<List<PessoaRelatorioDTO>> getRelatorio() {
+        return ResponseEntity.ok(pessoaService.gerarRelatorio());
     }
 
 

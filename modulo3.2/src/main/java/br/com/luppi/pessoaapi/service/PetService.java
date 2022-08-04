@@ -41,7 +41,7 @@ public class PetService {
 
     public PetDTO update(Integer id, PetCreateDTO petAtualizado) throws EntidadeNaoEncontradaException, RegraDeNegocioException {
         PetEntity petRecuperado = retornarPorId(id);
-        PessoaEntity antigoDono = pessoaService.returnPersonById(petRecuperado.getPessoa().getIdPessoa());
+        PessoaEntity antigoDono = petRecuperado.getPessoa();
         PessoaEntity pessoaAtualizada = pessoaService.returnPersonById(petAtualizado.getIdPessoa());
 
         if(verificarSeTemPet(pessoaAtualizada) && !Objects.equals(pessoaAtualizada.getIdPessoa(), antigoDono.getIdPessoa())) {
@@ -79,13 +79,14 @@ public class PetService {
 
     public void delete(Integer idPet) throws EntidadeNaoEncontradaException {
         PetEntity petRecuperado = retornarPorId(idPet);
-       PessoaEntity pessoaAtualizada = pessoaService.returnPersonById(petRecuperado.getPessoa().getIdPessoa());
+        PessoaEntity pessoaAtualizada = pessoaService.returnPersonById(petRecuperado.getPessoa().getIdPessoa());
         pessoaAtualizada.setPet(null);
         pessoaService.saveEntity(pessoaAtualizada);
         petRepository.delete(petRecuperado);
     }
 
     //------------------------------------Auxiliares-------------------------------------
+
     public PetEntity retornarEntity(PetCreateDTO dto) {
         return objectMapper.convertValue(dto, PetEntity.class);
     }

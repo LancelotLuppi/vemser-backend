@@ -7,6 +7,7 @@ import br.com.luppi.pessoaapi.dto.pet.PetDTO;
 import br.com.luppi.pessoaapi.entity.PessoaEntity;
 import br.com.luppi.pessoaapi.exception.EntidadeNaoEncontradaException;
 import br.com.luppi.pessoaapi.repository.PessoaRepository;
+import br.com.luppi.pessoaapi.repository.PetRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import java.util.stream.Collectors;
 public class PessoaService {
     @Autowired
     private  PessoaRepository pessoaRepository;
+    @Autowired
+    private PetRepository petRepository;
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -116,8 +119,8 @@ public class PessoaService {
         }
     }
 
-    public List<PessoaRelatorioDTO> gerarRelatorio(Integer id) {
-        return pessoaRepository.listRelatorioPessoa(id);
+    public List<PessoaRelatorioDTO> gerarRelatorio() {
+        return pessoaRepository.listRelatorioPessoa();
     }
 
 
@@ -135,8 +138,7 @@ public class PessoaService {
     }
 
     public PessoaEntity returnPersonById(Integer id) throws EntidadeNaoEncontradaException {
-        return pessoaRepository.findById(id).stream()
-                .findFirst()
+        return pessoaRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException(NOT_FOUND_MESSAGE));
     }
 
