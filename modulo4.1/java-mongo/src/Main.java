@@ -22,7 +22,6 @@ public class Main {
 
         MongoDatabase mongoDatabase = mongoClient.getDatabase("vemserdbc");
         MongoCollection<Document> pedidos = mongoDatabase.getCollection("pedidos");
-        MongoCollection<Document> pets = mongoDatabase.getCollection("pets");
 
         Document novoPedido = new Document("_id", 0)
                 .append("id_cliente", 3)
