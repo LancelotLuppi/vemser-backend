@@ -15,6 +15,6 @@ public class ProdutorController {
 
     @PostMapping("/enviar-mensagem")
     public void enviarMensagemParaOTopico(String mensagem){
-        produtorService.enviarMensagem(mensagem);
+        produtorService.enviarMensagemString(mensagem);
     }
 }

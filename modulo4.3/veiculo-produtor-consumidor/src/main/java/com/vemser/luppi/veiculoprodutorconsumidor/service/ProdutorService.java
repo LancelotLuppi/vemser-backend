@@ -1,9 +1,8 @@
-package com.luppi.kafka.produtorconsumidor.service;
-
-
+package com.vemser.luppi.veiculoprodutorconsumidor.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.luppi.kafka.produtorconsumidor.dto.BancoDTO;
+import com.vemser.luppi.veiculoprodutorconsumidor.Entity.DadosVeiculoEntity;
+import com.vemser.luppi.veiculoprodutorconsumidor.dto.DadosVeiculoDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -27,35 +27,27 @@ public class ProdutorService {
 
     @Value("${kafka.topic}")
     private String topico;
-    @Value("${kafka.topic-banco}")
-    private String topicoBanco;
 
 
-    public void enviarMensagemObjeto(BancoDTO bancoDTO) throws JsonProcessingException {
-        String bancoObjetoString = objectMapper.writeValueAsString(bancoDTO);
-        enviarMensagem(bancoObjetoString, topicoBanco);
-    }
+    public void enviarDadosVeiculo(DadosVeiculoDTO dto) throws JsonProcessingException {
+        DadosVeiculoEntity dadosVeiculoEntity = objectMapper.convertValue(dto, DadosVeiculoEntity.class);
+        dadosVeiculoEntity.setDataLeitura(LocalDateTime.now());
+        String payload = objectMapper.writeValueAsString(dadosVeiculoEntity);
 
-    public void enviarMensagemString(String mensagem) {
-        enviarMensagem(mensagem, topico);
-    }
-
-    private void enviarMensagem(String mensagem, String topico) {
-        MessageBuilder<String> stringMessageBuilder = MessageBuilder.withPayload(mensagem)
+        Message<String> message = MessageBuilder.withPayload(payload)
                 .setHeader(KafkaHeaders.TOPIC, topico)
-                .setHeader(KafkaHeaders.MESSAGE_KEY, UUID.randomUUID().toString());
-        Message<String> stringMessage = stringMessageBuilder
+                .setHeader(KafkaHeaders.MESSAGE_KEY, UUID.randomUUID().toString())
                 .build();
 
-        ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(stringMessage);
+        ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(message);
         future.addCallback(new ListenableFutureCallback<>() {
             @Override
             public void onSuccess(SendResult<String, String> result) {
-                log.info("Mensagem enviada para o kafka com o texto: {} ", mensagem);
+                log.info("Mensagem enviada para o kafka com o texto: {} ", message);
             }
             @Override
             public void onFailure(Throwable ex) {
-                log.error(" Erro ao publicar mensagem no kafka com o texto: {} ", mensagem, ex);
+                log.error(" Erro ao publicar mensagem no kafka com o texto: {} ", message, ex);
             }
         });
     }
