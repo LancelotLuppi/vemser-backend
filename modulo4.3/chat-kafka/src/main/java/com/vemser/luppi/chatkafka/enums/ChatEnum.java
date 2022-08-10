@@ -5,6 +5,7 @@ import java.util.Arrays;
 public enum ChatEnum {
     GERAL("chat-geral"),
     GABRIEL("chat-gabriel"),
+    MAICON("chat-maicon"),
     JEAN("chat-jean"),
     PAULO("chat-paulo"),
     WILLIAN("chat-willian"),

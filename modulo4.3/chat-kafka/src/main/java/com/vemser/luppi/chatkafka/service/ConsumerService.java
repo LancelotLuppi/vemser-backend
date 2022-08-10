@@ -25,7 +25,7 @@ public class ConsumerService {
             topics = "${kafka.chat.geral}",
             groupId = "${kafka.user.name}",
             containerFactory = "listenerContainerFactory",
-            clientIdPrefix = "${kafka.user.name}"
+            clientIdPrefix = "geral"
     )
     public void imprimirMensagemGlobal(@Payload String message,
                                        @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key,
@@ -42,7 +42,7 @@ public class ConsumerService {
             topics = "${kafka.user.chat}",
             groupId = "${kafka.user.name}",
             containerFactory = "listenerContainerFactory",
-            clientIdPrefix = "${kafka.user.name}"
+            clientIdPrefix = "privado"
     )
     public void imprimirMensagemPrivada(@Payload String message,
                                        @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key,
