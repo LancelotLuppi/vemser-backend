@@ -31,12 +31,6 @@ public class ProducerService {
     @Value("${kafka.chat.geral}")
     private String topicoGlobal;
 
-
-    public void enviarMensagemGlobal(MensagemDTO mensagemDTO) throws JsonProcessingException {
-        String stringMensagem = objectMapper.writeValueAsString(mensagemDTO);
-        enviarMensagem(stringMensagem, topicoGlobal);
-    }
-
     public void enviarMensagemTopicos(MensagemDTO mensagemDTO, Set<ChatEnum> topicos) throws JsonProcessingException {
         String stringMensagem = objectMapper.writeValueAsString(mensagemDTO);
 

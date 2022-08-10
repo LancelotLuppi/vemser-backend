@@ -18,12 +18,7 @@ import java.util.Set;
 public class MensagemController {
     private final MensagemService mensagemService;
 
-    @PostMapping("/global")
-    public void enviarMensagemGlobal(MensagemEnvioDTO envio) throws JsonProcessingException {
-        mensagemService.enviarMensagemGlobal(envio);
-    }
-
-    @PostMapping("/privado")
+    @PostMapping()
     public void enviarMensagemPrivada(MensagemEnvioDTO envio,
                                       @RequestParam("chats") Set<ChatEnum> chats) throws JsonProcessingException {
         mensagemService.enviarMensagemTopicos(envio, chats);
